@@ -13,15 +13,15 @@ class Alfabeto : public Simbolo {
   Alfabeto() : alfabeto_() {}
   Alfabeto(std::set<Simbolo> alfabeto) : alfabeto_(alfabeto) {}
   // Getter
-  std::string GetAlfabeto();
-  // Función de utilidad
-  void MeterSimbolos(const std::string alfabeto);
+  std::set<Simbolo> GetAlfabeto() const { return alfabeto_; }
+  // Funciones de utilidad
+  bool PerteneceAlAlfabeto(const Simbolo& simbolo) const;
+  void LeerCadena(const std::string cadena);
   // Sobrecarga de operadores
   friend std::ostream& operator<<(std::ostream& os, const Alfabeto& otro);
   friend std::istream& operator>>(std::istream& is, Alfabeto& otro);
  private:
   std::set<Simbolo> alfabeto_; // Conjunto de símbolos
-  std::string alfabeto;
 };
 
 #endif

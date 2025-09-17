@@ -3,20 +3,14 @@
 
 #include "clase_Simbolo.h"
 
-char Simbolo::GetSimbolo() const {
-  return simboloLeido_;
-}
-
-bool Simbolo::esMayor(const char letra) {
-  return simboloLeido_ > letra;
-}
-
-std::ostream& operator<<(std::ostream& os, const Simbolo& letra) {
-  os << letra.GetSimbolo();
+// Sobrecarga del operador de salida
+std::ostream& operator<<(std::ostream& os, const Simbolo& simbolo) {
+  os << simbolo.simbolo_;
   return os;
 }
 
-std::istream& operator>>(std::istream& is, const Simbolo& letra) {
-  is >> letra;
+// Sobrecarga del operador de entrada
+std::istream& operator>>(std::istream& is, Simbolo& simbolo) {
+  is >> simbolo.simbolo_;
   return is;
 }

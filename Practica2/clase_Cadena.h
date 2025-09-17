@@ -5,19 +5,21 @@
 #include <fstream>
 #include <string>
 
-class Cadena {
+class Cadena : public Simbolo {
  public:
   // Constructor
-  Cadena() : cadena_leida_() {}
-  Cadena(std::string letra_leida) : cadena_leida_(letra_leida) {}
-  void LeerCadena(std::string cadena_leida, std::string linea);
+  Cadena() : cadenaLeida_() {}
+  Cadena(std::string cadenaLeida) : cadenaLeida_(cadenaLeida) {}
   // Getters
   std::string GetCadena() const;
+  // Funciones útiles
+  int ObtenerLongitud();
+  std::string ObtenerCadena();
   // Sobrecarga de operadores
   friend std::ostream& operator<<(std::ostream& os, const Cadena& otro);
   friend std::istream& operator>>(std::istream& is, Cadena& otro);
  private:
-  std::string cadena_leida_;
+  std::string cadenaLeida_;
 };
 
 #endif

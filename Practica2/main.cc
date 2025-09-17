@@ -1,6 +1,11 @@
 #include <iostream>
 #include <fstream>
 
+#include "clase_Alfabeto.h"
+#include "clase_Cadena.h"
+#include "clase_Lenguaje.h"
+#include "clase_Simbolo.h"
+
 int main(int argc, char* argv[]) {
   if (argc == 2 && argv[1] == "--help") {
     std::cout << "Modo de uso: " << std::endl;
