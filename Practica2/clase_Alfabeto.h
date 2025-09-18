@@ -15,7 +15,7 @@ class Alfabeto : public Simbolo {
   // Getter
   std::set<Simbolo> GetAlfabeto() const { return alfabeto_; }
   // Funciones de utilidad
-  void Alfabeto::CrearAlfabeto(const std::string cadena);
+  void CrearAlfabeto(const std::string cadena);
   bool PerteneceAlAlfabeto(const Simbolo& simbolo) const;
   // Sobrecarga de operadores
   friend std::ostream& operator<<(std::ostream& os, const Alfabeto& otro);

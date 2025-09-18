@@ -1,37 +1,35 @@
 # Variables
 CC = g++
-CFLAGS = -Wall -g
-TARGETS = main
-OBJECTS = $(TARGETS:%=.o)
+CFLAGS = -Wall -g -std=c++11
+TARGET = main
+SRCS = main.cc clase_Alfabeto.cc clase_Cadena.cc clase_Lenguaje.cc clase_Simbolo.cc
+OBJS = $(SRCS:.cc=.o)
 
 .PHONY: all clean run help
 
 # Regla principal
-all: $(TARGETS)
+all: $(TARGET)
 
-# Reglas para cada ejecutable
-$(TARGETS): %: %.o
-	$(CC) $(CFLAGS) -o $@ $^
+# Regla para el ejecutable
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
+# Regla para archivos objeto
 %.o: %.cc
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza
 clean:
-	rm -f $(TARGETS) *.o
+	rm -f $(TARGET) *.o
 
 # Ejecutar
 run: all
-	./binary_to_decimal
-	./leap_year
-	./decimal_to_binary
-	./suma_digitos
-	./serie_de_Fibonacci
+	./$(TARGET) fichero_entrada.txt fichero_salida.txt 5
 
 # Ayuda
 help:
 	@echo "Opciones:"
-	@echo "  make         Compila todos los programas."
+	@echo "  make         Compila el programa principal."
 	@echo "  make clean   Limpia los archivos generados."
-	@echo "  make run     Ejecuta los programas."
+	@echo "  make run     Ejecuta el programa principal."
 	@echo "  make help    Muestra esta ayuda."

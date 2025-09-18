@@ -6,7 +6,9 @@
 #include <set>
 #include <string>
 
-class Cadena : public Simbolo {
+#include "clase_Simbolo.h"
+
+class Cadena : public Simbolo{
  public:
   // Constructor
   Cadena() : cadenaLeida_() {}

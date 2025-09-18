@@ -1,3 +1,25 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingenier´ıa y Tecnolog´ıa
+// Grado en Ingenier´ıa Inform´atica
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Pr´actica 2: Cadenas y lenguajes
+// Autor: David Javier Rodríguez Fumero 
+// Correo: alu0101706085@ull.edu.es
+// Fecha: 18/09/2025
+// Archivo cya-P02-strings.cc: programa cliente.
+// Contiene la funci´on main del proyecto que usa las clases X e Y
+// para ... (indicar brevemente el objetivo)
+// Objetivos del Proyecto:
+// Estructura de Datos Utilizadas:
+// Referencias:
+// Enlaces de inter´es
+//
+// Historial de revisiones
+// 16/09/2025 - Creaci´on (primera versi´on) del c´odigo
+// 17/09/2025 - Avance con las clases simbolo y alfabeto
+// 18/09/2025 - Avance con las clases cadena, lenguaje y el main
+
 #include <iostream>
 #include <fstream>
 
@@ -7,7 +29,7 @@
 #include "clase_Simbolo.h"
 
 int main(int argc, char* argv[]) {
-  if (argc == 2 && argv[1] == "--help") {
+  if (argc == 2 && std::string(argv[1]) == "--help") {
     std::cout << "Modo de uso: " << std::endl;
     return 1;
   } else if (argc != 4) {
@@ -25,14 +47,39 @@ int main(int argc, char* argv[]) {
       std::cerr << "Error, no se pudo abrir el fichero de lectura" << std::endl;
       return 1;
     }
-    Cadena cadena, alfabeto;
-    std::string linea, alfabeto, longitud, inversa, prefijos, sufijos;
-    while(std::getline(FicheroLectura, linea)) {
-      FicheroLectura >> cadena >> alfabeto;
-      
+    int opcode = std::stoi(argv[3]);
+    if (opcode < 1 || opcode > 5) {
+      std::cerr << "Error, opcode fuera de rango.\n";
     }
-
-
+    Cadena cadena_;
+    Alfabeto alfabeto_;
+    Lenguaje lenguaje_;
+    std::string linea, alfabetoStr, cadenaStr;
+    while(std::getline(FicheroLectura, linea)) {
+      FicheroLectura >> cadenaStr >> alfabetoStr;
+      switch (opcode) {
+        case 1:
+          alfabeto_.CrearAlfabeto(alfabetoStr);
+          FicheroEscritura << alfabeto_ << "\n";
+          break;
+        case 2:
+          cadena_ = cadenaStr;
+          FicheroEscritura << cadena_.ObtenerLongitud();
+          break;
+        case 3:
+          cadena_ = cadenaStr;
+          FicheroEscritura << cadena_.ObtenerInversa();
+          break;
+        case 4:
+          lenguaje_.CalcularPrefijos(cadenaStr);
+          FicheroEscritura << lenguaje_;
+          break;
+        case 5:
+          lenguaje_.CalcularSufijos(cadenaStr);
+          FicheroEscritura << lenguaje_;
+          break;
+      }
+    }
     FicheroEscritura.close();
     FicheroLectura.close();
     return 0;

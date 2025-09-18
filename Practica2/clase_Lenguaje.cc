@@ -22,8 +22,7 @@ void Lenguaje::CalcularPrefijos(const std::string cadena) {
 }
 
 void Lenguaje::CalcularSufijos(const std::string cadena) {
-  lenguaje_
-  .clear();
+  lenguaje_.clear();
   if (cadena == "") {  // Implica lenguaje vacío
     Cadena palabra = cadena;
     lenguaje_
@@ -34,7 +33,7 @@ void Lenguaje::CalcularSufijos(const std::string cadena) {
     lenguaje_
     .insert(cadenaVacia);
     std::string palabraActualizada = "";
-    for (int i{cadena.size() - 1}; i >= 0; i--) {
+    for (int i = static_cast<int>(cadena.size()) - 1; i >= 0; i--) {
       palabraActualizada += cadena[i];
       lenguaje_
       .insert(palabraActualizada);

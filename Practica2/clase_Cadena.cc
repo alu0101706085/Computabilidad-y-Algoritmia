@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 
-#include "clase_Simbolo.h"
 #include "clase_Cadena.h"
 
 int Cadena::ObtenerLongitud() {
@@ -29,8 +28,10 @@ std::string Cadena::ObtenerInversa() {
 
 std::ostream& operator<<(std::ostream& os, const Cadena& otro) {
   os << otro.cadenaLeida_;
+  return os;
 }
 
 std::istream& operator>>(std::istream& is, Cadena& otro) {
   is >> otro.cadenaLeida_;
+  return is;
 }
