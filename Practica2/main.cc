@@ -25,6 +25,12 @@ int main(int argc, char* argv[]) {
       std::cerr << "Error, no se pudo abrir el fichero de lectura" << std::endl;
       return 1;
     }
+    Cadena cadena, alfabeto;
+    std::string linea, alfabeto, longitud, inversa, prefijos, sufijos;
+    while(std::getline(FicheroLectura, linea)) {
+      FicheroLectura >> cadena >> alfabeto;
+      
+    }
 
 
     FicheroEscritura.close();

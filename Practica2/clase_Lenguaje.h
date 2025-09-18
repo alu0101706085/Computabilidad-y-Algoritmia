@@ -12,14 +12,11 @@ class Lenguaje : public Cadena{
   Lenguaje() = default;
   explicit Lenguaje(const std::set<Cadena>& cadenas);
   // Getter (devuelve referencia constante para eficiencia)
-  const std::set<Cadena>& GetLenguaje() const { return lenguaje_; }
-  // Crear Lenguaje
-  void CrearLenguaje(const std::string cadena);
-  // Insertar una cadena en el lenguaje
-  void Insertar(const Cadena& cadena);
+  const std::set<Cadena>& GetPrefijos() const { return lenguaje_; }
+  const std::set<Cadena>& GetSufijos() const { return lenguaje_; }
   // Funciones útiles
-  std::set<Cadena> CalcularPrefijos();
-  std::set<Cadena> CalcularSufijos();
+  void CalcularPrefijos(const std::string cadena);
+  void CalcularSufijos(const std::string cadena);
   // Sobrecarga de operadores de E/S
   friend std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje);
   // No se necesita operator>> para esta práctica (solo salida)
