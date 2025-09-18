@@ -15,6 +15,8 @@ class Cadena : public Simbolo{
   Cadena(std::string cadenaLeida) : cadenaLeida_(cadenaLeida) {}
   // Getters
   std::string GetCadena() const { return cadenaLeida_; }
+  // Setter
+  void SetCadena(const std::string cadena) { cadenaLeida_ = cadena; }
   // Funciones útiles
   int ObtenerLongitud();
   std::string ObtenerInversa();

@@ -55,28 +55,27 @@ int main(int argc, char* argv[]) {
     Alfabeto alfabeto_;
     Lenguaje lenguaje_;
     std::string linea, alfabetoStr, cadenaStr;
-    while(std::getline(FicheroLectura, linea)) {
-      FicheroLectura >> cadenaStr >> alfabetoStr;
+    while(FicheroLectura >> cadenaStr >> alfabetoStr) {
       switch (opcode) {
         case 1:
           alfabeto_.CrearAlfabeto(alfabetoStr);
           FicheroEscritura << alfabeto_ << "\n";
           break;
         case 2:
-          cadena_ = cadenaStr;
-          FicheroEscritura << cadena_.ObtenerLongitud();
+          cadena_.SetCadena(cadenaStr);
+          FicheroEscritura << cadena_.ObtenerLongitud() << "\n";
           break;
         case 3:
-          cadena_ = cadenaStr;
-          FicheroEscritura << cadena_.ObtenerInversa();
+          cadena_.SetCadena(cadenaStr);
+          FicheroEscritura << cadena_.ObtenerInversa() << "\n";
           break;
         case 4:
           lenguaje_.CalcularPrefijos(cadenaStr);
-          FicheroEscritura << lenguaje_;
+          FicheroEscritura << lenguaje_ << "\n";
           break;
         case 5:
           lenguaje_.CalcularSufijos(cadenaStr);
-          FicheroEscritura << lenguaje_;
+          FicheroEscritura << lenguaje_ << "\n";
           break;
       }
     }

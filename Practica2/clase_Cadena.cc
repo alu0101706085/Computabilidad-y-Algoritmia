@@ -14,18 +14,14 @@ int Cadena::ObtenerLongitud() {
 }
 
 std::string Cadena::ObtenerInversa() {
-  std::string resultado;
   if (cadenaLeida_.empty()) {
-    resultado = "&";
+    return "&";
   } else {
-    Simbolo simbolo;
-    std::string resultado;
-    reverse(cadenaLeida_.begin(), cadenaLeida_.end());
-    resultado = resultado;
+    std::string resultado = cadenaLeida_;
+    std::reverse(resultado.begin(), resultado.end());
+    return resultado;
   }
-  return resultado;
 }
-
 std::ostream& operator<<(std::ostream& os, const Cadena& otro) {
   os << otro.cadenaLeida_;
   return os;

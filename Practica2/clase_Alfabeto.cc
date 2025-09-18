@@ -7,6 +7,7 @@ bool Alfabeto::PerteneceAlAlfabeto(const Simbolo& simbolo) const {
   return alfabeto_.find(simbolo) != alfabeto_.end();
 }
 void Alfabeto::CrearAlfabeto(const std::string cadena) {
+  alfabeto_.clear();
   for (char caracter : cadena) {
     Simbolo simbolo(caracter);
     // Solo añadimos si no está ya en el alfabeto
@@ -16,13 +17,13 @@ void Alfabeto::CrearAlfabeto(const std::string cadena) {
   }
 }
 std::ostream& operator<<(std::ostream& os, const Alfabeto& otro) {
-  os << "{ ";
+  os << "{";
   for (auto elemento = otro.alfabeto_.begin(); elemento != otro.alfabeto_.end(); ++elemento) {
     os << *elemento;
     if (std::next(elemento) != otro.alfabeto_.end()) {
       os << ", ";
     }
   }
-  os << " }";
+  os << " }\n";
   return os;
 }

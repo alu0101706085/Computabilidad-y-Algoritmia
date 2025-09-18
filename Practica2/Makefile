@@ -24,7 +24,7 @@ clean:
 
 # Ejecutar
 run: all
-	./$(TARGET) fichero_entrada.txt fichero_salida.txt 5
+	./$(TARGET) fichero_entrada.txt fichero_salida.txt 4
 
 # Ayuda
 help:

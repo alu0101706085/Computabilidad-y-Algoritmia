@@ -7,7 +7,8 @@
 void Lenguaje::CalcularPrefijos(const std::string cadena) {
   lenguaje_.clear();
   if (cadena == "") {  // Implica lenguaje vacío
-    Cadena palabra = cadena;
+    Cadena palabra;
+    palabra.SetCadena(cadena);
     lenguaje_.insert(palabra);
   } else {
     std::string cadenaVacia = "&";
