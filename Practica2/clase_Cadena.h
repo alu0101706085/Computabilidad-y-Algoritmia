@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <set>
 #include <string>
 
 class Cadena : public Simbolo {
@@ -11,10 +12,10 @@ class Cadena : public Simbolo {
   Cadena() : cadenaLeida_() {}
   Cadena(std::string cadenaLeida) : cadenaLeida_(cadenaLeida) {}
   // Getters
-  std::string GetCadena() const;
+  std::string GetCadena() const { return cadenaLeida_; }
   // Funciones útiles
   int ObtenerLongitud();
-  std::string ObtenerCadena();
+  std::string ObtenerInversa();
   // Sobrecarga de operadores
   friend std::ostream& operator<<(std::ostream& os, const Cadena& otro);
   friend std::istream& operator>>(std::istream& is, Cadena& otro);
