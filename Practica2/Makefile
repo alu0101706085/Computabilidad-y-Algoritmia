@@ -1,8 +1,8 @@
 # Variables
 CC = g++
 CFLAGS = -Wall -g -std=c++11
-TARGET = main
-SRCS = main.cc clase_Alfabeto.cc clase_Cadena.cc clase_Lenguaje.cc clase_Simbolo.cc
+TARGET = p02_ejecutable
+SRCS = p02_ejecutable.cc clase_Alfabeto.cc clase_Cadena.cc clase_Lenguaje.cc clase_Simbolo.cc
 OBJS = $(SRCS:.cc=.o)
 
 .PHONY: all clean run help
@@ -24,7 +24,7 @@ clean:
 
 # Ejecutar
 run: all
-	./$(TARGET) fichero_entrada.txt fichero_salida.txt 5
+	./$(TARGET) fichero_entrada.txt fichero_salida.txt 4
 
 # Ayuda
 help:

@@ -6,8 +6,8 @@
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: David Javier Rodríguez Fumero 
 // Correo: alu0101706085@ull.edu.es
-// Fecha: 18/09/2025
-// Archivo cya-P02-strings.cc: programa cliente.
+// Fecha: 19/09/2025
+// Archivo p02_ejecutable.cc: programa cliente.
 // Contiene la funci´on main del proyecto que usa las clases X e Y
 // para ... (indicar brevemente el objetivo)
 // Objetivos del Proyecto:
@@ -19,6 +19,7 @@
 // 16/09/2025 - Creaci´on (primera versi´on) del c´odigo
 // 17/09/2025 - Avance con las clases simbolo y alfabeto
 // 18/09/2025 - Avance con las clases cadena, lenguaje y el main
+// 19/09/2025 - Obtención de los resultados esperados
 
 #include <iostream>
 #include <fstream>
@@ -33,7 +34,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Modo de uso: " << std::endl;
     return 1;
   } else if (argc != 4) {
-    std::cout << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode" << std::endl;
+    std::cout << "Modo de empleo: ./p02_ejecutable filein.txt fileout.txt opcode" << std::endl;
     std::cout << "Pruebe ´./p02_strings --help´ para mas informacion." << std::endl;
     return 1;
   } else {
