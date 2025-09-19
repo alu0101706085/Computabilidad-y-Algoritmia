@@ -9,7 +9,7 @@ bool Alfabeto::PerteneceAlAlfabeto(const Simbolo& simbolo) const {
 void Alfabeto::CrearAlfabeto(const std::string cadena) {
   alfabeto_.clear();
   for (char caracter : cadena) {
-    Simbolo simbolo(caracter);
+    Simbolo simbolo = caracter;
     // Solo añadimos si no está ya en el alfabeto
     if (alfabeto_.find(simbolo) == alfabeto_.end()) {
       alfabeto_.insert(simbolo);

@@ -12,7 +12,6 @@ int Cadena::ObtenerLongitud() {
   }
   return resultado;
 }
-
 std::string Cadena::ObtenerInversa() {
   if (cadenaLeida_.empty()) {
     return "&";
@@ -26,7 +25,6 @@ std::ostream& operator<<(std::ostream& os, const Cadena& otro) {
   os << otro.cadenaLeida_;
   return os;
 }
-
 std::istream& operator>>(std::istream& is, Cadena& otro) {
   is >> otro.cadenaLeida_;
   return is;

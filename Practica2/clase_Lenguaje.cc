@@ -6,50 +6,48 @@
 
 void Lenguaje::CalcularPrefijos(const std::string cadena) {
   lenguaje_.clear();
-  if (cadena == "") {  // Implica lenguaje vacío
-    Cadena palabra;
+  Cadena palabra;
+  if (cadena == "&") {  // Implica lenguaje vacío
     palabra.SetCadena(cadena);
     lenguaje_.insert(palabra);
   } else {
-    std::string cadenaVacia = "&";
-    Cadena vacio = cadenaVacia;
-    lenguaje_.insert(cadenaVacia);
     std::string palabraActualizada = "";
+    Cadena cadenaActualizada = palabraActualizada;
     for (char caracter : cadena) {
       palabraActualizada += caracter;
-      lenguaje_.insert(palabraActualizada);
+      cadenaActualizada.SetCadena(palabraActualizada);
+      lenguaje_.insert(cadenaActualizada);
     }
   }
 }
 
 void Lenguaje::CalcularSufijos(const std::string cadena) {
   lenguaje_.clear();
-  if (cadena == "") {  // Implica lenguaje vacío
+  if (cadena == "&") {  // Implica lenguaje vacío
     Cadena palabra = cadena;
-    lenguaje_
-    .insert(palabra);
+    lenguaje_.insert(palabra);
   } else {
-    std::string cadenaVacia = "&";
-    Cadena vacio = cadenaVacia;
-    lenguaje_
-    .insert(cadenaVacia);
     std::string palabraActualizada = "";
+    Cadena cadenaActualizada = palabraActualizada;
     for (int i = static_cast<int>(cadena.size()) - 1; i >= 0; i--) {
       palabraActualizada += cadena[i];
-      lenguaje_
-      .insert(palabraActualizada);
+      cadenaActualizada.SetCadena(palabraActualizada);
+      lenguaje_.insert(cadenaActualizada);
     }
   }
 }
 
 std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje) {
-  os << "{";
+  os << "{&";
   for (auto elemento = lenguaje.lenguaje_.begin(); elemento != lenguaje.lenguaje_.end(); ++elemento) {
+    if (std::prev(elemento) == lenguaje.lenguaje_.end()) {
+      os << ", ";
+    }
     os << *elemento;
     if (std::next(elemento) != lenguaje.lenguaje_.end()) {
       os << ", ";
     }
   }
-  os << " }";
+  os << "}";
   return os;
 }

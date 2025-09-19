@@ -17,6 +17,9 @@ class Cadena : public Simbolo{
   std::string GetCadena() const { return cadenaLeida_; }
   // Setter
   void SetCadena(const std::string cadena) { cadenaLeida_ = cadena; }
+  // Funciones de comparación
+  bool operator<(const Cadena& otro) const { return cadenaLeida_.size() < otro.cadenaLeida_.size(); }
+  bool operator==(const Cadena& otro) const { return cadenaLeida_.size() == otro.cadenaLeida_.size(); }
   // Funciones útiles
   int ObtenerLongitud();
   std::string ObtenerInversa();
