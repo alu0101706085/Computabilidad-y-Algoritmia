@@ -63,6 +63,12 @@ void Lenguaje::CalcularSufijos(const std::string cadena) {
 std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje) {
   os << "{ε";
   for (auto elemento = lenguaje.lenguaje_.begin(); elemento != lenguaje.lenguaje_.end(); ++elemento) {
+    std::string vacio = "ε";
+    Cadena cadenaVacia = vacio;
+    if (*elemento == cadenaVacia) {
+      os << "}";
+      return os;
+    }
     if (std::prev(elemento) == lenguaje.lenguaje_.end()) {
       os << ", ";
     }

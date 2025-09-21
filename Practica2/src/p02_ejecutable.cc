@@ -22,6 +22,7 @@
 // 17/09/2025 - Avance con las clases simbolo y alfabeto
 // 18/09/2025 - Avance con las clases cadena, lenguaje y el main
 // 19/09/2025 - Obtención de los resultados esperados
+// 21/09/2025 - Mejoras en el main con restricciones y ayudas
 
 #include <iostream>
 #include <fstream>

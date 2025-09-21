@@ -31,11 +31,10 @@ bool Alfabeto::PerteneceAlAlfabeto(const Simbolo& simbolo) const {
 }
 void Alfabeto::CrearAlfabeto(const std::string cadena) {
   alfabeto_.clear();
-  for (char caracter : cadena) {
-    Simbolo simbolo = caracter;
+  for (Simbolo caracter : cadena) {
     // Solo añadimos si no está ya en el alfabeto
-    if (alfabeto_.find(simbolo) == alfabeto_.end()) {
-      alfabeto_.insert(simbolo);
+    if (alfabeto_.find(caracter) == alfabeto_.end()) {
+      alfabeto_.insert(caracter);
     }
   }
 }

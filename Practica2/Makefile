@@ -1,9 +1,22 @@
 # Variables
 CC = g++
-CFLAGS = -Wall -g -std=c++11
-TARGET = p02_ejecutable
-SRCS = p02_ejecutable.cc clase_Alfabeto.cc clase_Cadena.cc clase_Lenguaje.cc clase_Simbolo.cc
-OBJS = $(SRCS:.cc=.o)
+CFLAGS = -Wall -g -std=c++11 -I./include
+TARGET = $(SRC_DIR)/p02_ejecutable
+
+# Directorios
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = include
+
+# Archivos fuente
+SRCS = $(SRC_DIR)/p02_ejecutable.cc \
+       $(SRC_DIR)/clase_Alfabeto.cc \
+       $(SRC_DIR)/clase_Cadena.cc \
+       $(SRC_DIR)/clase_Lenguaje.cc \
+       $(SRC_DIR)/clase_Simbolo.cc
+
+# Archivos objeto
+OBJS = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
 
 .PHONY: all clean run help
 
@@ -15,16 +28,18 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
 # Regla para archivos objeto
-%.o: %.cc
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(TARGET)
+	rm -rf $(OBJ_DIR)
 
 # Ejecutar
 run: all
-	./$(TARGET) fichero_entrada.txt fichero_salida.txt 4
+	$(TARGET) $(SRC_DIR)/fichero_entrada.txt $(SRC_DIR)/fichero_salida.txt 5
 
 # Ayuda
 help:

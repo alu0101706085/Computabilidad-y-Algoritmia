@@ -28,7 +28,7 @@
 
 int Cadena::ObtenerLongitud() {
   int resultado{0};
-  if (cadenaLeida_.empty()) {
+  if (cadenaLeida_ == "ε") {
     resultado = 0;
   } else {
     resultado = cadenaLeida_.size();
@@ -36,8 +36,8 @@ int Cadena::ObtenerLongitud() {
   return resultado;
 }
 std::string Cadena::ObtenerInversa() {
-  if (cadenaLeida_.empty()) {
-    return "&";
+  if (cadenaLeida_ == "ε") {
+    return "ε";
   } else {
     std::string resultado = cadenaLeida_;
     std::reverse(resultado.begin(), resultado.end());
