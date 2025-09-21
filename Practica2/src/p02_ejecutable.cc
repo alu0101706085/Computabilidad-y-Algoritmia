@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
     std::cout << "        4. Prefijos: Calcula un lenguaje conformado por el conjunto de cadenas" << std::endl;
     std::cout << "        que son prefijos de la cadena de entrada correspondiente." << std::endl;
     std::cout << "        5. Sufijos: Calcula un lenguaje conformado por el conjunto de cadenas" << std::endl;
-    std::cout << "        que son sufijos de la cadena de entrada correspondiente.\n" << std::endl;
+    std::cout << "        que son sufijos de la cadena de entrada correspondiente." << std::endl;
     std::cout << "Los resultados de las operaciones se verán expresadas en el archivo de salida." << std::endl;
     return 1;
   } else if (argc != 4) {
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
     std::string linea, alfabetoStr, cadenaStr;
     while(FicheroLectura >> cadenaStr >> alfabetoStr) {
       for (char caracter : cadenaStr) {
-        if (alfabetoStr.find(caracter) == std::string::npos) {
+        if (alfabetoStr.find(caracter) == std::string::npos && cadenaStr != "ε") {
           std::cout << "Error, la cadena introducida no pertenece al alfabeto propuesto." << std::endl;
           return 1;
         }
