@@ -30,7 +30,7 @@
 void Lenguaje::CalcularPrefijos(const std::string cadena) {
   lenguaje_.clear();
   Cadena palabra;
-  if (cadena == "&") {  // Implica lenguaje vacío
+  if (cadena == "ε") {  // Implica cadena vacia
     palabra.SetCadena(cadena);
     lenguaje_.insert(palabra);
   } else {
@@ -46,7 +46,7 @@ void Lenguaje::CalcularPrefijos(const std::string cadena) {
 
 void Lenguaje::CalcularSufijos(const std::string cadena) {
   lenguaje_.clear();
-  if (cadena == "&") {  // Implica lenguaje vacío
+  if (cadena == "ε") {  // Implica cadena vacia
     Cadena palabra = cadena;
     lenguaje_.insert(palabra);
   } else {
@@ -61,7 +61,7 @@ void Lenguaje::CalcularSufijos(const std::string cadena) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje) {
-  os << "{&";
+  os << "{ε";
   for (auto elemento = lenguaje.lenguaje_.begin(); elemento != lenguaje.lenguaje_.end(); ++elemento) {
     if (std::prev(elemento) == lenguaje.lenguaje_.end()) {
       os << ", ";
