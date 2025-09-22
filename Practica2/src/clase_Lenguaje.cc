@@ -4,33 +4,38 @@
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
 // Pr´actica 2: Cadenas y lenguajes
-// Autor: David Javier Rodríguez Fumero 
+// Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
 // Fecha: 19/09/2025
 // Archivo clase_Lenguaje.cc: programa de definicion de la clase lenguaje
 // Contiene las definiciones de la clase lenguaje para poder establecer
 // como desde una cadena establecer sus prefijos y sufijos.
 // Objetivos del Proyecto: Facilitar la operacion con lenguajes
-// Estructura de Datos Utilizadas:
-// Referencias:
-// Enlaces de inter´es
+// Referencias: https://google.github.io/styleguide/cppguide.html
+// Enlaces de inter´es: https://google.github.io/styleguide/cppguide.html
 //
 // Historial de revisiones
 // 16/09/2025 - Creaci´on (primera versi´on) del c´odigo
 // 17/09/2025 - Avance con las clases simbolo y alfabeto
 // 18/09/2025 - Avance con las clases cadena, lenguaje y el main
 // 19/09/2025 - Obtención de los resultados esperados
-
-#include <iostream>
-#include <algorithm>
+// 21/09/2025 - Mejoras en el main con restricciones y ayudas
+// 22/09/2025 - Introduccion de constantes y mejorar la apliación de la guia de
+// estilo de Google
 
 #include "clase_Lenguaje.h"
+
+#include <algorithm>
+#include <iostream>
+
 #include "clase_Cadena.h"
+
+const char* CADENA_VACIA = "ε";
 
 void Lenguaje::CalcularPrefijos(const std::string cadena) {
   lenguaje_.clear();
   Cadena palabra;
-  if (cadena == "ε") {  // Implica cadena vacia
+  if (cadena == CADENA_VACIA) {  // Implica cadena vacia
     palabra.SetCadena(cadena);
     lenguaje_.insert(palabra);
   } else {
@@ -46,7 +51,7 @@ void Lenguaje::CalcularPrefijos(const std::string cadena) {
 
 void Lenguaje::CalcularSufijos(const std::string cadena) {
   lenguaje_.clear();
-  if (cadena == "ε") {  // Implica cadena vacia
+  if (cadena == CADENA_VACIA) {  // Implica cadena vacia
     Cadena palabra = cadena;
     lenguaje_.insert(palabra);
   } else {
@@ -61,9 +66,10 @@ void Lenguaje::CalcularSufijos(const std::string cadena) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje) {
-  os << "{ε";
-  for (auto elemento = lenguaje.lenguaje_.begin(); elemento != lenguaje.lenguaje_.end(); ++elemento) {
-    std::string vacio = "ε";
+  os << "{" << CADENA_VACIA;
+  for (auto elemento = lenguaje.lenguaje_.begin();
+       elemento != lenguaje.lenguaje_.end(); ++elemento) {
+    std::string vacio = CADENA_VACIA;
     Cadena cadenaVacia = vacio;
     if (*elemento == cadenaVacia) {
       os << "}";
