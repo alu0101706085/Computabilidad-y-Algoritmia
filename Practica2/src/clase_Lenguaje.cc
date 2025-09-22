@@ -30,7 +30,7 @@
 
 #include "clase_Cadena.h"
 
-const char* CADENA_VACIA = "ε";
+const char* CADENA_VACIA = "&";
 
 void Lenguaje::CalcularPrefijos(const std::string cadena) {
   lenguaje_.clear();

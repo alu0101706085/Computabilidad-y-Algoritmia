@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     while (FicheroLectura >> cadenaStr >> alfabetoStr) {
       for (char caracter : cadenaStr) {
         if (alfabetoStr.find(caracter) == std::string::npos &&
-            cadenaStr != "ε") {
+            cadenaStr != "&") {
           std::cout << "Error, la cadena introducida no pertenece al alfabeto "
                        "propuesto."
                     << std::endl;
