@@ -6,7 +6,7 @@
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
-// Fecha: 19/09/2025
+// Fecha: 22/09/2025
 // Archivo clase_Cadena.h: programa de declaración de la clase cadena.
 // Contiene las declaraciones de la clase cadena para poder definirlas
 // en su .cc y trabajar con ellas.

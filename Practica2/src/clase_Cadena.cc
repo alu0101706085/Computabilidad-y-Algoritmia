@@ -6,7 +6,7 @@
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
-// Fecha: 19/09/2025
+// Fecha: 22/09/2025
 // Archivo clase_Cadena.cc: programa de definicion de la clase cadena.
 // Contiene las definiciones de la clase cadena para poder calcular
 // longitudes e inversas, además de establecer como leer y escribir cadenas.

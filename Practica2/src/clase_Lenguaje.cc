@@ -6,7 +6,7 @@
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
-// Fecha: 19/09/2025
+// Fecha: 22/09/2025
 // Archivo clase_Lenguaje.cc: programa de definicion de la clase lenguaje
 // Contiene las definiciones de la clase lenguaje para poder establecer
 // como desde una cadena establecer sus prefijos y sufijos.

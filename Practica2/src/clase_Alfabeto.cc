@@ -6,7 +6,7 @@
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
-// Fecha: 19/09/2025
+// Fecha: 22/09/2025
 // Archivo clase_Alfabeto.cc: programa de definicion de la clase alfabeto.
 // Contiene las definiciones de la clase alfabeto para poder calcular
 // si un simbolo pertenece o no a esa clase, además de establecer su escritura.

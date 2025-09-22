@@ -6,7 +6,7 @@
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
-// Fecha: 19/09/2025
+// Fecha: 22/09/2025
 // Archivo p02_ejecutable.cc: programa cliente.
 // Contiene la funci´on main del proyecto que usa las clases Simbolo, Cadena,
 // Alfabeto y Lenguaje para poder operar correctamente con esos valores de una
