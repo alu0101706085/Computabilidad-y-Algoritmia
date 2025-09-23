@@ -7,8 +7,8 @@
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
 // Fecha: 22/09/2025
-// Archivo clase_Cadena.h: programa de declaración de la clase lenguaje.
-// Contiene las declaraciones de la clase lenguaje para poder definirlas
+// Archivo clase_Alfabeto.h: programa de declaración de la clase alfabeto.
+// Contiene las declaraciones de la clase alfabeto para poder definirlas
 // en su .cc y trabajar con ellas.
 // Objetivos del Proyecto: Definir el uso de la clase y sus capacidades.
 // Referencias: https://google.github.io/styleguide/cppguide.html
@@ -23,31 +23,30 @@
 // 22/09/2025 - Introduccion de constantes y mejorar la apliación de la guia de
 // estilo de Google
 
-#ifndef CLASE_LENGUAJE_H
-#define CLASE_LENGUAJE_H
+#ifndef CLASE_ALFABETO_H
+#define CLASE_ALFABETO_H
 
+#include <fstream>
 #include <iostream>
 #include <set>
 
-#include "clase_Cadena.h"
+#include "clase_Simbolo.h"
 
-class Lenguaje : public Cadena {
+class Alfabeto : public Simbolo {
  public:
-  // Constructores
-  Lenguaje() = default;
-  explicit Lenguaje(const std::set<Cadena>& cadenas);
-  // Getter (devuelve referencia constante para eficiencia)
-  const std::set<Cadena>& GetPrefijos() const { return lenguaje_; }
-  const std::set<Cadena>& GetSufijos() const { return lenguaje_; }
-  // Funciones útiles
-  void CalcularPrefijos(const std::string cadena);
-  void CalcularSufijos(const std::string cadena);
-  void CalcularSubcadenas(const std::string cadena);
-  // Sobrecarga de operadores de E/S
-  friend std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje);
-  // No se necesita operator>> para esta práctica (solo salida)
+  // Constructor
+  Alfabeto() : alfabeto_() {}
+  Alfabeto(std::set<Simbolo> alfabeto) : alfabeto_(alfabeto) {}
+  // Getter
+  std::set<Simbolo> GetAlfabeto() const { return alfabeto_; }
+  // Funciones de utilidad
+  void CrearAlfabeto(const std::string cadena);
+  bool PerteneceAlAlfabeto(const Simbolo& simbolo) const;
+  // Sobrecarga de operadores
+  friend std::ostream& operator<<(std::ostream& os, const Alfabeto& otro);
+
  private:
-  std::set<Cadena> lenguaje_;  // Conjunto de cadenas
+  std::set<Simbolo> alfabeto_;  // Conjunto de símbolos
 };
 
 #endif
