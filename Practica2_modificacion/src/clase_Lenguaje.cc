@@ -37,14 +37,14 @@ void Lenguaje::CalcularPrefijos(const std::string cadena) {
   Cadena palabra;
   if (cadena == CADENA_VACIA) {  // Implica cadena vacia
     palabra.SetCadena(cadena);
-    lenguaje_.insert(palabra);
+    lenguaje_.push_back(palabra);
   } else {
     std::string palabraActualizada = "";
     Cadena cadenaActualizada = palabraActualizada;
     for (char caracter : cadena) {
       palabraActualizada += caracter;
       cadenaActualizada.SetCadena(palabraActualizada);
-      lenguaje_.insert(cadenaActualizada);
+      lenguaje_.push_back(cadenaActualizada);
     }
   }
 }
@@ -53,53 +53,43 @@ void Lenguaje::CalcularSufijos(const std::string cadena) {
   lenguaje_.clear();
   if (cadena == CADENA_VACIA) {  // Implica cadena vacia
     Cadena palabra = cadena;
-    lenguaje_.insert(palabra);
+    lenguaje_.push_back(palabra);
   } else {
     std::string palabraActualizada = "";
     Cadena cadenaActualizada = palabraActualizada;
     for (int i = static_cast<int>(cadena.size()) - 1; i >= 0; i--) {
       palabraActualizada += cadena[i];
       cadenaActualizada.SetCadena(palabraActualizada);
-      lenguaje_.insert(cadenaActualizada);
+      lenguaje_.push_back(cadenaActualizada);
     }
   }
 }
 
+// El problema estaba en que tenia un set y no un vector, modificacion ya
+// funcional
 void Lenguaje::CalcularSubcadenas(const std::string cadena) {
   lenguaje_.clear();
   if (cadena == CADENA_VACIA || cadena.empty()) {
-    Cadena palabra = cadena;
-    lenguaje_.insert(palabra);
+    return;  // no añadimos "&" al vector, solo se imprimirá en operator<<
   }
-  // Generar todas las subcadenas
-  for (int i{0}; i < static_cast<int>(cadena.size()); ++i) {
-    for (int j{1}; j <= static_cast<int>(cadena.size()) - i; ++j) {
+  for (int i = 0; i < static_cast<int>(cadena.size()); ++i) {
+    for (int j = 1; j <= static_cast<int>(cadena.size()) - i; ++j) {
       std::string subcadena = cadena.substr(i, j);
       Cadena cadenaSubcadena;
       cadenaSubcadena.SetCadena(subcadena);
-      lenguaje_.insert(cadenaSubcadena);
-      subcadena = cadena.substr(j, i);
-      cadenaSubcadena.SetCadena(subcadena);
-      lenguaje_.insert(cadenaSubcadena);
+      lenguaje_.push_back(cadenaSubcadena);  // guarda con duplicados
     }
   }
 }
 
 std::ostream& operator<<(std::ostream& os, const Lenguaje& lenguaje) {
-  os << "{" << CADENA_VACIA;
-  for (auto elemento = lenguaje.lenguaje_.begin();
-       elemento != lenguaje.lenguaje_.end(); ++elemento) {
-    std::string vacio = CADENA_VACIA;
-    Cadena cadenaVacia = vacio;
-    if (*elemento == cadenaVacia) {
-      os << "}";
-      return os;
-    }
-    if (std::prev(elemento) == lenguaje.lenguaje_.end()) {
-      os << ", ";
-    }
-    os << *elemento;
-    if (std::next(elemento) != lenguaje.lenguaje_.end()) {
+  os << "{" << CADENA_VACIA;  // la cadena vacía siempre presente
+  if (!lenguaje.lenguaje_.empty()) {
+    os << ", ";
+  }
+  for (size_t i = 0; i < lenguaje.lenguaje_.size(); ++i) {
+    os << lenguaje.lenguaje_[i];
+    if (i + 1 < lenguaje.lenguaje_.size()) {
       os << ", ";
     }
   }
