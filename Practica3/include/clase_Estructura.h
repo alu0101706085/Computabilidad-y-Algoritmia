@@ -7,7 +7,6 @@
 
 #include "clase_Bucle.h"
 #include "clase_Comentario.h"
-#include "clase_Funcion.h"
 #include "clase_Variable.h"
 
 class Estructura {
@@ -48,8 +47,8 @@ class Estructura {
   void AddVariable(const Variable& variable);
   void AddBucle(const Bucle& bucle);
   void AddComentario(const Comentario& comentario);
-  void GetNumeroBuclesPorTipo(TipoBucle tipo) const;
-  void GetNumeroVariablesPorTipo(TipoVariable tipo) const;
+  int GetNumeroBuclesPorTipo(TipoBucle tipo) const;
+  int GetNumeroVariablesPorTipo(TipoVariable tipo) const;
 
  private:
   std::string nombre_archivo_;

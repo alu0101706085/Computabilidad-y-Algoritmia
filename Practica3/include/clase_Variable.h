@@ -16,20 +16,23 @@ class Variable {
         numero_linea_(numero_linea),
         inicializada_(inicializada) {}
   // Getters
-  TipoVariable GetTipo() { return tipo_; }
-  std::string GetNombre() { return nombre_; }
-  int GetNumeroLinea() { return numero_linea_; }
-  bool GetInicializada() { return inicializada_; }
+  TipoVariable GetTipo() const { return tipo_; }
+  std::string GetNombre() const { return nombre_; }
+  int GetNumeroLinea() const { return numero_linea_; }
+  bool GetInicializada() const { return inicializada_; }
+  std::string GetValorInicial() const { return valor_inicial_; }
   // Setters
   void SetTipo(TipoVariable tipo) { tipo_ = tipo; }
   void SetNombre(std::string& nombre) { nombre_ = nombre; }
   void SetNumeroLinea(int numero_linea) { numero_linea_ = numero_linea; }
   void SetInicializada(bool inicializada) { inicializada_ = inicializada; }
+  void SetValorInicial(const std::string& valor) { valor_inicial_ = valor; }
  private:
   TipoVariable tipo_;
   std::string nombre_;
   int numero_linea_;
   bool inicializada_;
+  std::string valor_inicial_;
 };
 
 #endif

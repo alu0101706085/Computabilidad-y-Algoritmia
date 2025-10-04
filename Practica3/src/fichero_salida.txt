@@ -1,0 +1,27 @@
+PROGRAM: 
+DESCRIPTION:
+
+VARIABLES:
+[Line 22] INT: factorial = = 1
+[Line 23] INT: i = = 1
+[Line 32] INT: limit
+[Line 34] INT: i = = 1
+
+STATEMENTS:
+[Line 23] LOOP: for
+[Line 34] LOOP: for
+
+MAIN:
+False
+
+COMMENTS:
+[Line 9] // github .com /IB -2023 -2024/ IB -class -code - examples /[Line 1-10] /**  * Universidad de La Laguna
+  * Escuela Superior de Ingenieria y Tecnologia
+  * Informatica Basica
+  *
+  * @brief Ejercicios de programacion
+  * Version 1: Funcion factorial
+  *
+  */
+
+[Line 15] // Returns the factorial of the argument
