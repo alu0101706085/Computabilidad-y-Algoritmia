@@ -1,7 +1,7 @@
 # Variables
 CC = g++
 CFLAGS = -Wall -g -std=c++11 -I./include
-TARGET = $(SRC_DIR)/p03_ejecutable
+TARGET = $(SRC_DIR)/p04_ejecutable
 
 # Directorios
 SRC_DIR = src
@@ -9,7 +9,7 @@ OBJ_DIR = obj
 INC_DIR = include
 
 # Archivos fuente
-SRCS = $(SRC_DIR)/p03_ejecutable.cc \
+SRCS = $(SRC_DIR)/p04_ejecutable.cc \
        $(SRC_DIR)/clase_Estructura.cc \
        $(SRC_DIR)/clase_Funcion.cc \
        $(SRC_DIR)/clase_Generar_Reporte.cc \
