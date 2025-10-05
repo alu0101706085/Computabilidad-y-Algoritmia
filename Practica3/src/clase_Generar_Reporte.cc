@@ -20,6 +20,7 @@ void GenerarReporte::GenerarResultado(const std::string& fichero_salida, const E
     EscribirSeccionMain(FicheroEscritura, estructura);
     EscribirSeccionComentarios(FicheroEscritura, estructura);
   }
+  FicheroEscritura.close();
 }
 
 void GenerarReporte::EscribirSeccionPrograma(std::ofstream& FicheroEscritura, const Estructura& estructura) {
@@ -68,7 +69,7 @@ void GenerarReporte::EscribirSeccionBucle(std::ofstream& FicheroEscritura, const
 
 void GenerarReporte::EscribirSeccionMain(std::ofstream& FicheroEscritura, const Estructura& estructura) {
   FicheroEscritura << "MAIN:" << std::endl;
-  FicheroEscritura << (estructura.GetTieneMain() ? "true" : "False") << std::endl;
+  FicheroEscritura << (estructura.GetTieneMain() ? "True" : "False") << std::endl;
   FicheroEscritura << std::endl;
 }
 
@@ -77,7 +78,10 @@ void GenerarReporte::EscribirSeccionComentarios(std::ofstream& FicheroEscritura,
   std::vector<Comentario> cadena = estructura.GetVectorComentarios();
   for (const auto& comentario : cadena) {
     const auto& lineas = comentario.GetNumeroLineas();
-    if (lineas.size() == 1) {
+    // NO mostrar el primer comentario si es la descripcion del archivo
+    if (lineas.size() > 0 && lineas[0] == 1 && comentario.GetContenido() == estructura.GetDescripcionPrograma()) {
+      FicheroEscritura << "[Line " << lineas.front() << "-" << lineas.back() << "] DESCRIPTION"  << std::endl;
+    } else if (lineas.size() == 1) {
       FicheroEscritura << "[Line " << lineas[0] << "] " << comentario.GetContenido();
     } else if (lineas.size() > 1) {
       FicheroEscritura << "[Line " << lineas.front() << "-" << lineas.back() << "] " << comentario.GetContenido() << std::endl;

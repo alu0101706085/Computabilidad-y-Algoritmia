@@ -12,7 +12,7 @@ INC_DIR = include
 SRCS = $(SRC_DIR)/p03_ejecutable.cc \
        $(SRC_DIR)/clase_Estructura.cc \
        $(SRC_DIR)/clase_Funcion.cc \
-       $(SRC_DIR)/Clase_Generar_Reporte.cc \
+       $(SRC_DIR)/clase_Generar_Reporte.cc \
        $(SRC_DIR)/clase_PatronesRegex.cc
 
 # Archivos objeto

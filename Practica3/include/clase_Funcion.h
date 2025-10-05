@@ -24,7 +24,9 @@ class Funcion {
   bool dentro_de_un_comentario_multilinea = false;
   int inicio_multi_linea = 0;
   std::string contenido_comentario_multi_linea;
-  bool main_encontrado;
+  bool main_encontrado = false;
+  bool primer_comentario_encontrado = false;
+  bool descripcion_establecida = false;
 };
 
 #endif

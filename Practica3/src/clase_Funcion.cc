@@ -8,6 +8,7 @@
 #include <string>
 
 void Funcion::AnalizarFichero(const std::string& fichero_entrada, Estructura& estructura) {
+  estructura.SetNombreArchivo(fichero_entrada);
   std::ifstream ficheroLectura(fichero_entrada);
   if (!ficheroLectura) {
     std::cerr << "Error, no se pudo abrir el fichero de lectura.\n";
@@ -19,6 +20,8 @@ void Funcion::AnalizarFichero(const std::string& fichero_entrada, Estructura& es
       numero_linea++;
     }
   }
+  estructura.SetTieneMain(main_encontrado);
+  ficheroLectura.close();
 }
 
 void Funcion::AnalizarLinea(const std::string& linea, int numero_linea, Estructura& estructura) {
@@ -39,7 +42,11 @@ void Funcion::DetectarVariable(const std::string& linea, int numero_linea, Estru
     bool esta_inicializada = matches[2].matched;
     valor.SetInicializada(esta_inicializada);
     if (matches[2].matched) {
-      valor.SetValorInicial(matches[2].str());
+      std::string valor_inical = matches[2].str();
+      if (!valor_inical.empty() && valor_inical[0] == '=') {
+        valor_inical = valor_inical.substr(1);
+      }
+      valor.SetValorInicial(valor_inical);
     }
     estructura.AddVariable(valor);
   } else if (std::regex_search(linea, matches, PatronesRegex::DOUBLE_VARIABLE_REGEX)) {
@@ -51,7 +58,11 @@ void Funcion::DetectarVariable(const std::string& linea, int numero_linea, Estru
     bool esta_inicializada = matches[2].matched;
     valor.SetInicializada(esta_inicializada);
     if (matches[2].matched) {
-      valor.SetValorInicial(matches[2].str());
+      std::string valor_inical = matches[2].str();
+      if (!valor_inical.empty() && valor_inical[0] == '=') {
+        valor_inical = valor_inical.substr(1);
+      }
+      valor.SetValorInicial(valor_inical);
     }
     estructura.AddVariable(valor);
   }
@@ -83,20 +94,32 @@ void Funcion::DetectarComentario(const std::string& linea, int numero_linea, Est
     std::vector<int> numero;
     numero.push_back(numero_linea);
     comentario.SetNumeroLineas(numero);
+    if (!primer_comentario_encontrado && numero_linea == 1) {
+      estructura.SetDescripcionPrograma(contenido);
+      primer_comentario_encontrado = true;
+      descripcion_establecida = true;
+    }
     estructura.AddComentario(comentario);
   // Caso 2: Buscamos el inicio de un comentario multilinea
   } else if (std::regex_search(linea, matches, PatronesRegex::MULTI_LINE_COMMENT_START_REGEX)) {
     dentro_de_un_comentario_multilinea = true;
     inicio_multi_linea = numero_linea;
-    contenido_comentario_multi_linea = linea;
+    contenido_comentario_multi_linea = linea + "\n";
+    if (!primer_comentario_encontrado && numero_linea == 1) {
+      primer_comentario_encontrado = true;
+    }
     if (std::regex_search(linea, matches, PatronesRegex::MULTI_LINE_COMMENT_END_REGEX)) {
-        Comentario comentario;
-        comentario.SetTipo(TipoComentario::MULTIPLE_LINEA);
-        comentario.SetContenido(contenido_comentario_multi_linea);
-        comentario.SetNumeroLineas({numero_linea});
-
-        dentro_de_un_comentario_multilinea = false;
-        contenido_comentario_multi_linea.clear();
+      Comentario comentario;
+      comentario.SetTipo(TipoComentario::MULTIPLE_LINEA);
+      comentario.SetContenido(contenido_comentario_multi_linea);
+      comentario.SetNumeroLineas({numero_linea});
+      if(!descripcion_establecida && numero_linea == 1) {
+        estructura.SetDescripcionPrograma(contenido_comentario_multi_linea);
+        descripcion_establecida = true;
+      }
+      estructura.AddComentario(comentario);
+      dentro_de_un_comentario_multilinea = false;
+      contenido_comentario_multi_linea.clear();
     }
   // Caso 3: Seguimos dentro de un comentario multilinea
   } else if (dentro_de_un_comentario_multilinea) {
@@ -110,6 +133,10 @@ void Funcion::DetectarComentario(const std::string& linea, int numero_linea, Est
         lineas.push_back(i);
       }
       comentario.SetNumeroLineas(lineas);
+      if (!descripcion_establecida && inicio_multi_linea == 1) {
+        estructura.SetDescripcionPrograma(contenido_comentario_multi_linea);
+        descripcion_establecida = true;
+      }
       estructura.AddComentario(comentario);
       dentro_de_un_comentario_multilinea = false;
       contenido_comentario_multi_linea.clear();
@@ -122,7 +149,6 @@ void Funcion::DetectarMain(const std::string& linea, int numero_linea, Estructur
   std::smatch matches;
   if (std::regex_search(linea, matches, PatronesRegex::MAIN_FUNCTION_REGEX)) {
     main_encontrado = true;
-  } else {
-    main_encontrado = false;
+    estructura.SetTieneMain(true);
   }
 }
