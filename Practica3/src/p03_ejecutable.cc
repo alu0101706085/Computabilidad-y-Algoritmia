@@ -31,4 +31,5 @@ int main(int argc, char* argv[]) {
     reporte.GenerarResultado(argv[2], estructura);
     std::cout << "Análisis completado. Resultados en: " << argv[2] << std::endl;
   }
+  return 0;
 }

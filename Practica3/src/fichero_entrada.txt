@@ -4,9 +4,9 @@
   * Informatica Basica
   *
   * @brief Ejercicios de programacion
-  * Version 1: Funcion factorial
+  *        Version 1: Funcion factorial
   *
-  * @see https :// github .com /IB -2023 -2024/ IB -class -code - examples /
+  * @see https://github.com/IB-2023-2024/IB-class-code-examples/
   */
 
 #include <iostream>

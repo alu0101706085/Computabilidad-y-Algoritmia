@@ -32,6 +32,10 @@ void Funcion::AnalizarLinea(const std::string& linea, int numero_linea, Estructu
 }
 
 void Funcion::DetectarVariable(const std::string& linea, int numero_linea, Estructura& estructura) {
+  // ← EXCLUIR si la línea contiene "for" o "while" antes del tipo
+  if (std::regex_search(linea, PatronesRegex::FOR_LOOP_REGEX) || std::regex_search(linea, PatronesRegex::WHILE_LOOP_REGEX)) {
+    return;  // No procesar variables dentro de bucles
+  }
   std::smatch matches;
   if (std::regex_search(linea, matches, PatronesRegex::INT_VARIABLE_REGEX)) {
     Variable valor;
@@ -86,7 +90,7 @@ void Funcion::DetectarBucle(const std::string& linea, int numero_linea, Estructu
 void Funcion::DetectarComentario(const std::string& linea, int numero_linea, Estructura& estructura) {
   std::smatch matches;
   // Caso 1: Buscamos una sola linea
-  if (std::regex_search(linea, matches, PatronesRegex::SINGLE_LINE_COMMENT_REGEX)) {
+  if (std::regex_search(linea, matches, PatronesRegex::SINGLE_LINE_COMMENT_REGEX) && dentro_de_un_comentario_multilinea == false) {
     Comentario comentario;
     comentario.SetTipo(TipoComentario::UNA_LINEA);
     std::string contenido = matches[0].str();
