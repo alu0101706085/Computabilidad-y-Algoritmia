@@ -1,0 +1,147 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+/**
+ * Programa ejemplo que demuestra el uso de:
+ * - Estructuras if-else
+ * - Bucles do-while  
+ * - Estructuras switch
+ * - Diferentes tipos de variables
+ * - Comentarios descriptivos
+ */
+
+// Variables de clase/globales - describen el estado del programa
+int numeroIntentos = 0;           // Contador de intentos del usuario
+bool programaActivo = true;       // Controla si el programa sigue ejecutándose
+string nombreUsuario = "";        // Almacena el nombre del usuario
+
+// Constantes del programa
+const int MAX_INTENTOS = 3;
+const int OPCION_SALIR = 4;
+
+int main() {
+    // Variables locales - describen datos temporales del programa
+    int opcionMenu = 0;           // Almacena la opción seleccionada en el menú
+    double precioProducto = 0.0;  // Precio de un producto para cálculos
+    int cantidadProducto = 0;     // Cantidad de productos
+    char categoriaProducto = 'A'; // Categoría del producto (A, B o C)
+    
+    cout << "=== SISTEMA DE GESTIÓN DE INVENTARIO ===" << endl;
+    
+    // Bucle DO-WHILE: Se ejecuta al menos una vez
+    // Perfecto para menús donde quieres mostrar opciones primero
+    do {
+        cout << "\n--- MENÚ PRINCIPAL ---" << endl;
+        cout << "1. Calcular precio total" << endl;
+        cout << "2. Clasificar producto" << endl;
+        cout << "3. Ver información del usuario" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Seleccione una opción: ";
+        cin >> opcionMenu;
+        
+        // Estructura SWITCH - ideal para menús con opciones discretas
+        switch(opcionMenu) {
+            case 1: {
+                // Calcular precio total con descuentos
+                cout << "\n--- CÁLCULO DE PRECIO ---" << endl;
+                cout << "Ingrese el precio del producto: ";
+                cin >> precioProducto;
+                cout << "Ingrese la cantidad: ";
+                cin >> cantidadProducto;
+                
+                double precioTotal = precioProducto * cantidadProducto;
+                double descuento = 0.0;
+                
+                // Estructura IF-ELSE para determinar descuentos
+                if (cantidadProducto > 10) {
+                    descuento = precioTotal * 0.15;  // 15% de descuento
+                    cout << "¡Descuento por volumen aplicado! (15%)" << endl;
+                } else if (cantidadProducto > 5) {
+                    descuento = precioTotal * 0.10;  // 10% de descuento
+                    cout << "Descuento estándar aplicado (10%)" << endl;
+                } else {
+                    cout << "Sin descuento aplicable" << endl;
+                }
+                
+                double precioFinal = precioTotal - descuento;
+                cout << "Precio total: $" << precioTotal << endl;
+                cout << "Descuento: $" << descuento << endl;
+                cout << "Precio final: $" << precioFinal << endl;
+                break;
+            }
+                
+            case 2: {
+                // Clasificar producto por categoría
+                cout << "\n--- CLASIFICACIÓN DE PRODUCTO ---" << endl;
+                cout << "Ingrese categoría (A, B o C): ";
+                cin >> categoriaProducto;
+                
+                // SWITCH con caracteres - para opciones de letras
+                switch(categoriaProducto) {
+                    case 'A':
+                    case 'a':
+                        cout << "Categoría A: Productos de alta gama" << endl;
+                        cout << "Requisitos: Control de calidad estricto" << endl;
+                        break;
+                    case 'B':
+                    case 'b':
+                        cout << "Categoría B: Productos estándar" << endl;
+                        cout << "Requisitos: Control de calidad básico" << endl;
+                        break;
+                    case 'C':
+                    case 'c':
+                        cout << "Categoría C: Productos económicos" << endl;
+                        cout << "Requisitos: Verificación visual" << endl;
+                        break;
+                    default:
+                        // ELSE implícito para opciones inválidas
+                        cout << "Categoría no reconocida. Use A, B o C." << endl;
+                        numeroIntentos++;
+                }
+                break;
+            }
+                
+            case 3: {
+                // Información del usuario con validación
+                cout << "\n--- INFORMACIÓN DEL USUARIO ---" << endl;
+                
+                // IF-ELSE para verificar si ya tenemos el nombre
+                if (nombreUsuario.empty()) {
+                    cout << "Ingrese su nombre: ";
+                    cin.ignore();  // Limpiar buffer
+                    getline(cin, nombreUsuario);
+                    cout << "¡Bienvenido, " << nombreUsuario << "!" << endl;
+                } else {
+                    cout << "Usuario actual: " << nombreUsuario << endl;
+                    cout << "Intentos de categoría errónea: " << numeroIntentos << endl;
+                }
+                break;
+            }
+                
+            case 4:
+                // Salir del programa
+                cout << "¡Gracias por usar el sistema!" << endl;
+                programaActivo = false;
+                break;
+                
+            default:
+                // Manejo de opciones inválidas en el menú principal
+                cout << "Opción no válida. Por favor, seleccione 1-4." << endl;
+                numeroIntentos++;
+        }
+        
+        // Verificación de límite de intentos fallidos
+        if (numeroIntentos >= MAX_INTENTOS) {
+            cout << "\n⚠️  Advertencia: Demasiados intentos fallidos." << endl;
+            cout << "El programa se cerrará por seguridad." << endl;
+            programaActivo = false;
+        }
+        
+    } while (programaActivo);  // El bucle continúa mientras programaActivo sea true
+    
+    cout << "\n=== PROGRAMA FINALIZADO ===" << endl;
+    return 0;
+}

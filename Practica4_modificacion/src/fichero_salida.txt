@@ -1,0 +1,61 @@
+PROGRAM: src/fichero_entrada.txt
+DESCRIPTION:
+
+VARIABLES:
+[Line 17] INT: numeroIntentos =  0
+[Line 22] INT: MAX_INTENTOS =  3
+[Line 23] INT: OPCION_SALIR =  4
+[Line 27] INT: opcionMenu =  0
+[Line 28] DOUBLE: precioProducto =  0.0
+[Line 29] INT: cantidadProducto =  0
+[Line 56] DOUBLE: descuento =  0.0
+
+STATEMENTS:
+[Line 46] LOOP: switch
+[Line 59] LOOP: if-else
+[Line 62] LOOP: if-else
+[Line 83] LOOP: switch
+[Line 112] LOOP: if-else
+[Line 137] LOOP: if-else
+[Line 143] LOOP: while
+
+MAIN:
+True
+
+COMMENTS:
+[Line 7-14] /**
+ * Programa ejemplo que demuestra el uso de:
+ * - Estructuras if-else
+ * - Bucles do-while  
+ * - Estructuras switch
+ * - Diferentes tipos de variables
+ * - Comentarios descriptivos
+ */
+
+[Line 16] // Variables de clase/globales - describen el estado del programa
+[Line 17] // Contador de intentos del usuario
+[Line 18] // Controla si el programa sigue ejecutándose
+[Line 19] // Almacena el nombre del usuario
+[Line 21] // Constantes del programa
+[Line 26] // Variables locales - describen datos temporales del programa
+[Line 27] // Almacena la opción seleccionada en el menú
+[Line 28] // Precio de un producto para cálculos
+[Line 29] // Cantidad de productos
+[Line 30] // Categoría del producto (A, B o C)
+[Line 34] // Bucle DO-WHILE: Se ejecuta al menos una vez
+[Line 35] // Perfecto para menús donde quieres mostrar opciones primero
+[Line 45] // Estructura SWITCH - ideal para menús con opciones discretas
+[Line 48] // Calcular precio total con descuentos
+[Line 58] // Estructura IF-ELSE para determinar descuentos
+[Line 60] // 15% de descuento
+[Line 63] // 10% de descuento
+[Line 77] // Clasificar producto por categoría
+[Line 82] // SWITCH con caracteres - para opciones de letras
+[Line 100] // ELSE implícito para opciones inválidas
+[Line 108] // Información del usuario con validación
+[Line 111] // IF-ELSE para verificar si ya tenemos el nombre
+[Line 114] // Limpiar buffer
+[Line 125] // Salir del programa
+[Line 131] // Manejo de opciones inválidas en el menú principal
+[Line 136] // Verificación de límite de intentos fallidos
+[Line 143] // El bucle continúa mientras programaActivo sea true

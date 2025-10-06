@@ -81,12 +81,17 @@ void GenerarReporte::EscribirSeccionBucle(std::ofstream& FicheroEscritura,
   FicheroEscritura << "STATEMENTS:" << std::endl;
   std::vector<Bucle> cadena = estructura.GetVectorBucle();
   for (const auto& bucle : cadena) {
-    FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: ";
     if (bucle.GetTipo() == TipoBucle::BUCLE_FOR) {
-      FicheroEscritura << "for" << std::endl;
-    } else if (bucle.GetTipo() == TipoBucle::BUCLE_WHILE) {
-      FicheroEscritura << "while" << std::endl;
-    } 
+      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: for" << std::endl;
+    } else if (bucle.GetTipo() == TipoBucle::BUCLE_DO_WHILE) {
+      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: do-while" << std::endl;
+    } else if (bucle.GetTipo() == TipoBucle::BUCLE_IF_ELSE) {
+      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: if-else" << std::endl;
+    } else if (bucle.GetTipo() == TipoBucle::BUCLE_SWITCH) {
+      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: switch" << std::endl;
+    } else if (bucle.GetTipo() == TipoBucle::BUCLE_WHILE) { 
+      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: while" << std::endl;
+    }
   }
   FicheroEscritura << std::endl;
 }
@@ -94,7 +99,8 @@ void GenerarReporte::EscribirSeccionBucle(std::ofstream& FicheroEscritura,
 void GenerarReporte::EscribirSeccionMain(std::ofstream& FicheroEscritura,
                                          const Estructura& estructura) {
   FicheroEscritura << "MAIN:" << std::endl;
-  FicheroEscritura << (estructura.GetTieneMain() ? "True" : "False") << std::endl;
+  FicheroEscritura << (estructura.GetTieneMain() ? "True" : "False")
+                   << std::endl;
   FicheroEscritura << std::endl;
 }
 
