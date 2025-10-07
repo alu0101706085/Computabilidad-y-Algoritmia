@@ -43,9 +43,6 @@ class Funcion {
   bool main_encontrado = false;
   bool primer_comentario_encontrado = false;
   bool descripcion_establecida = false;
-  // Modificaciones
-  bool dentro_de_un_do_while = false;
-  int inicio_do_while = 0;
 };
 
 #endif

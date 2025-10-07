@@ -19,8 +19,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
-enum class TipoBucle { BUCLE_FOR, BUCLE_WHILE, BUCLE_DO_WHILE, BUCLE_SWITCH, BUCLE_IF_ELSE };
+enum class TipoBucle { BUCLE_FOR, BUCLE_WHILE, BUCLE_SWITCH };
 
 class Bucle {
  public:
@@ -30,12 +31,19 @@ class Bucle {
   // Getters
   TipoBucle GetTipo() const { return tipo_; }
   int GetNumeroLinea() const { return numero_linea_; }
+  std::string GetOpcion() const { return opcion_; } // Modificacion
+  int GetNumeroBreaks() const { return numero_breaks; } // Modificacion
   // Setters
   void SetTipo(const TipoBucle& tipo) { tipo_ = tipo; }
-  void SetNumeroLinea(const int numero_linea) { numero_linea_ = numero_linea; }
+  void SetNumeroLinea(const int numero_linea) { numero_linea_ = numero_linea; } // Modificacion
+  void SetOpcion(const std::string& opcion) { opcion_ = opcion; } // Modificacion
+  void AddNumeroBreaks() { numero_breaks++; }
  private:
   TipoBucle tipo_;
   int numero_linea_;
+  // MODIFICACION
+  std::string opcion_;
+  int numero_breaks = 0;
 };
 
 #endif

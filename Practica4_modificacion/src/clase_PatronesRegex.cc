@@ -27,10 +27,6 @@ const std::regex PatronesRegex::SINGLE_LINE_COMMENT_REGEX(R"(\/\/[^\n]*)");
 const std::regex PatronesRegex::MULTI_LINE_COMMENT_START_REGEX(R"(\/\*)");
 const std::regex PatronesRegex::MULTI_LINE_COMMENT_END_REGEX(R"(\*\/)");
 const std::regex PatronesRegex::MAIN_FUNCTION_REGEX(R"(int\s+main\s*\()");
-// Modificaciones
-const std::regex PatronesRegex::DO_WHILE_LOOP_START_REGEX(R"(^\s*do\s*\{?)");
-const std::regex PatronesRegex::DO_WHILE_LOOP_END_REGEX(R"(}\s*while\s*\(.*\)\s*;)");
-const std::regex PatronesRegex::STD_VARIABLE_REGEX(R"(std\s*::\s*\w+\s*\w+\s*(?:=\s*.+)?\s*;)");
-const std::regex PatronesRegex::CLASE_VARIABLE_REGEX(R"(\b(?:class|struct)\s+(\w+)\s*(?::\s*(?:public|private|protected)\s+\w+)?\s*\{)");
+// Modificacion
 const std::regex PatronesRegex::SWITCH_LOOP_REGEX(R"(switch\s*\((.*?)\)\s*\{)");
-const std::regex PatronesRegex::IF_ELSE_LOOP_REGEX(R"(if\s*\((.*?)\)\s*(?:\{|\s*\w+))");
+const std::regex PatronesRegex::SWITCH_BREAK_LOOP_REGEX(R"(break(\s)*;)");

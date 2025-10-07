@@ -98,41 +98,25 @@ void Funcion::DetectarBucle(const std::string& linea, int numero_linea,
   std::smatch matches;
   if (std::regex_search(linea, matches, PatronesRegex::FOR_LOOP_REGEX)) {
     Bucle bucle;
-    bucle.SetNumeroLinea({numero_linea});
+    bucle.SetNumeroLinea(numero_linea);
     bucle.SetTipo(TipoBucle::BUCLE_FOR);
     estructura.AddBucle(bucle);
   } else if (std::regex_search(linea, matches,
                                PatronesRegex::WHILE_LOOP_REGEX)) {
     Bucle bucle;
-    bucle.SetNumeroLinea({numero_linea});
+    bucle.SetNumeroLinea(numero_linea);
     bucle.SetTipo(TipoBucle::BUCLE_WHILE);
     estructura.AddBucle(bucle);
-  // Modificaciones
+  // Modificacion
   } else if (std::regex_search(linea, matches, PatronesRegex::SWITCH_LOOP_REGEX)) {
     Bucle bucle;
-    bucle.SetNumeroLinea({numero_linea});
+    bucle.SetNumeroLinea(numero_linea);
     bucle.SetTipo(TipoBucle::BUCLE_SWITCH);
+    bucle.SetOpcion(matches[1].str());
     estructura.AddBucle(bucle);
-  } else if (std::regex_search(linea, matches, PatronesRegex::IF_ELSE_LOOP_REGEX)) {
+  } else if (std::regex_search(linea, matches, PatronesRegex::SWITCH_BREAK_LOOP_REGEX)) {
     Bucle bucle;
-    bucle.SetNumeroLinea({numero_linea});
-    bucle.SetTipo(TipoBucle::BUCLE_IF_ELSE);
-    estructura.AddBucle(bucle);
-  // Caso 1: Empezamos la instancia del do-while
-  } else if (std::regex_search(linea, matches, PatronesRegex::DO_WHILE_LOOP_START_REGEX)) {
-    // Solo marcar el inicio
-    dentro_de_un_do_while = true;
-    inicio_do_while = numero_linea;
-  // Caso 2: Estamos dentro de un do-while
-  } else if (dentro_de_un_do_while) {
-    if (std::regex_search(linea, matches, PatronesRegex::DO_WHILE_LOOP_END_REGEX)) {
-      Bucle bucle;
-      bucle.SetNumeroLinea(inicio_do_while);  // Línea donde empezó el 'do'
-      bucle.SetTipo(TipoBucle::BUCLE_DO_WHILE);
-      estructura.AddBucle(bucle);
-      dentro_de_un_do_while = false;
-      return;
-    }
+    bucle.AddNumeroBreaks();
   }
 }
 

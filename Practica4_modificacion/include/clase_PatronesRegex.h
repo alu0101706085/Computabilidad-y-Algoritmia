@@ -31,12 +31,8 @@ class PatronesRegex {
   static const std::regex MULTI_LINE_COMMENT_END_REGEX;
   static const std::regex MAIN_FUNCTION_REGEX;
   // Posibles modificaciones
-  static const std::regex DO_WHILE_LOOP_START_REGEX;
-  static const std::regex DO_WHILE_LOOP_END_REGEX;
-  static const std::regex STD_VARIABLE_REGEX;
-  static const std::regex CLASE_VARIABLE_REGEX;
   static const std::regex SWITCH_LOOP_REGEX;
-  static const std::regex IF_ELSE_LOOP_REGEX;
+  static const std::regex SWITCH_BREAK_LOOP_REGEX;
 };
 
 #endif

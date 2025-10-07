@@ -20,7 +20,7 @@
 #include <iostream>
 #include <string>
 
-enum class TipoVariable { VAR_INT, VAR_DOUBLE };
+enum class TipoVariable { VAR_INT, VAR_DOUBLE, VAR_OPCION };
 
 class Variable {
  public:

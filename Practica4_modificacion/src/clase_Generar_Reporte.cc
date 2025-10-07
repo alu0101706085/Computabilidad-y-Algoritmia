@@ -83,12 +83,10 @@ void GenerarReporte::EscribirSeccionBucle(std::ofstream& FicheroEscritura,
   for (const auto& bucle : cadena) {
     if (bucle.GetTipo() == TipoBucle::BUCLE_FOR) {
       FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: for" << std::endl;
-    } else if (bucle.GetTipo() == TipoBucle::BUCLE_DO_WHILE) {
-      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: do-while" << std::endl;
-    } else if (bucle.GetTipo() == TipoBucle::BUCLE_IF_ELSE) {
-      FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: if-else" << std::endl;
-    } else if (bucle.GetTipo() == TipoBucle::BUCLE_SWITCH) {
+    } else if (bucle.GetTipo() == TipoBucle::BUCLE_SWITCH) { // MODIFICACION
       FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: switch" << std::endl;
+      FicheroEscritura << "Opción: " << bucle.GetOpcion() << std::endl; 
+      FicheroEscritura << "Nº Breaks: " << bucle.GetNumeroBreaks() << std::endl;
     } else if (bucle.GetTipo() == TipoBucle::BUCLE_WHILE) { 
       FicheroEscritura << "[Line " << bucle.GetNumeroLinea() << "] LOOP: while" << std::endl;
     }
