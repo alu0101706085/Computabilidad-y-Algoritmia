@@ -33,7 +33,7 @@ void Automata::DetectarAlfabeto(std::ifstream& FicheroLectura, Estructura estruc
 
 void Automata::DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura, Estructura estructura) {
   unsigned numero_total_estados{0};
-  unsigned estado_inicial{0};
+  Estado estado_inicial;
   FicheroLectura >> numero_total_estados >> estado_inicial;
   estructura.SetNumeroTotalEstados(numero_total_estados);
   estructura.SetEstadoArranque(estado_inicial);

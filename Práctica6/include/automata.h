@@ -1,5 +1,5 @@
-#ifndef AUTOMATA
-#define AUTOMATA
+#ifndef AUTOMATA_H
+#define AUTOMATA_H
 
 #include "string"
 

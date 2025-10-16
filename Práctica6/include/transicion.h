@@ -1,16 +1,16 @@
-#ifndef TRANSICION
-#define TRANSICION
+#ifndef TRANSICION_H
+#define TRANSICION_H
 
 class Transicion {
  public:
   Transicion() = default;
-  Transicion(int origen, int destino, int valor_transicion)
+  Transicion(Estado destino, char valor_transicion)
       : destino_(destino), valor_transicion_(valor_transicion) {}
   // Getters
-  int GetDestino() const { return destino_; }
+  Estado GetDestino() const { return destino_; }
   char GetValorTransicion() const { return valor_transicion_; }
   // Setters
-  void SetDestino(int destino) { destino_ = destino; }
+  void SetDestino(Estado destino) { destino_ = destino; }
   void SetValorTransicion(char valor_transicion) {
     valor_transicion_ = valor_transicion;
   }
@@ -23,7 +23,7 @@ class Transicion {
     return is;
   }
  private:
-  int destino_;
+  Estado destino_;
   char valor_transicion_;
 };
 

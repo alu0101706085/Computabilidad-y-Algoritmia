@@ -1,5 +1,5 @@
-#ifndef ESTADO
-#define ESTADO
+#ifndef ESTADO_H
+#define ESTADO_H
 
 #include <set>
 
@@ -27,6 +27,14 @@ class Estado {
   }
   void SetSetTranscion(std::set<Transicion> transiciones) {
     transiciones_ = transiciones;
+  }
+  // Sobrecarga de operadores
+  bool operator<(const Estado& otro) {
+    return numero_estado_ < otro.numero_estado_;
+  }
+  friend std::istream& operator>>(std::istream& is, Estado& estado) {
+    is >> estado.numero_estado_;
+    return is;
   }
  private:
   unsigned numero_estado_;
