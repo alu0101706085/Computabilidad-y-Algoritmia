@@ -6,7 +6,7 @@
 #include "../include/estructura.h"
 #include "../include/transicion.h"
 
-void Automata::DefinirAutomata(const std::string& FicheroDeEntrada, Estructura estructura) {
+void Automata::DefinirAutomata(const std::string& FicheroDeEntrada, Estructura& estructura) {
   std::ifstream FicheroLectura(FicheroDeEntrada);
   if (!FicheroLectura) {
     std::cerr << "Error, no se pudo abrir el fichero de salida" << std::endl;
@@ -18,7 +18,7 @@ void Automata::DefinirAutomata(const std::string& FicheroDeEntrada, Estructura e
   FicheroLectura.close();
 }
 
-void Automata::DetectarAlfabeto(std::ifstream& FicheroLectura, Estructura estructura) {
+void Automata::DetectarAlfabeto(std::ifstream& FicheroLectura, Estructura& estructura) {
   std::string linea;
   std::getline(FicheroLectura, linea);
   for (char simbolo : linea) {
@@ -31,7 +31,7 @@ void Automata::DetectarAlfabeto(std::ifstream& FicheroLectura, Estructura estruc
   }
 }
 
-void Automata::DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura, Estructura estructura) {
+void Automata::DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura, Estructura& estructura) {
   unsigned numero_total_estados{0};
   Estado estado_inicial;
   FicheroLectura >> numero_total_estados >> estado_inicial;
@@ -39,7 +39,7 @@ void Automata::DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura,
   estructura.SetEstadoArranque(estado_inicial);
 }
 
-void Automata::DetectarEstado(std::ifstream& FicheroLectura, Estructura estructura) {
+void Automata::DetectarEstado(std::ifstream& FicheroLectura, Estructura& estructura) {
   // ELIMINAR el bucle for - procesar solo UNA línea
   Estado estado;
   unsigned numero_estado;
@@ -58,6 +58,6 @@ void Automata::DetectarEstado(std::ifstream& FicheroLectura, Estructura estructu
     transicion.SetDestino(destino);
     cadena.insert(transicion);
   }
-  estado.SetSetTranscion(cadena);
+  estado.SetTransiciones(cadena);
   estructura.AddCadenaEstados(estado);
 }

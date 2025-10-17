@@ -2,6 +2,7 @@
 #define SIMULADOR_H
 
 #include "../include/estructura.h"
+#include "../include/estado.h"
 #include "string"
 
 class Simulador {
@@ -9,10 +10,9 @@ class Simulador {
   Simulador() = default;
   void RealizarSimulador(const std::string& FicheroDeEntrada,
                          Estructura estructura);
-  bool AnalizarCadena(const std::string& cadena, Estructura estructura);
-  void AnalizarNFA(const char simbolo, Estado estado, Estructura estructura);
-  void MostrarResultado();
-  void CalcularTransicion();  // Nuevos estados tras leer un símbolo
+  bool AnalizarCadena(const std::string& cadena, Estructura& estructura);
+  std::set<Estado> AvanzarEstado(const std::set<Estado> cadena_estados, char simbolo);
+  void MostrarResultado(const std::string& cadena, Estructura& estructura);
   // Comprobaciones
   bool VerificarValorTransicion(const char simbolo,
                                 const Estructura& estructura);

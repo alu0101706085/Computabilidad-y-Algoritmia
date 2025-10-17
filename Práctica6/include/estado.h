@@ -1,46 +1,44 @@
 #ifndef ESTADO_H
 #define ESTADO_H
 
+#include <iostream>
 #include <set>
-
-#include "transicion.h"
+#include "transicion.h"  // Incluir transicion.h
 
 class Estado {
  public:
-  Estado() = default;
-  Estado(int numero_estado, bool es_final, int numero_transiciones,
-         std::set<Transicion> transiciones)
-      : numero_estado_(numero_estado),
-        es_final_(es_final),
-        numero_transiciones_(numero_transiciones),
-        transiciones_(transiciones) {}
-  // Getters
-  unsigned GetNumeroEstado() const { return numero_estado_; }
-  bool GetEsAceptado() const { return es_final_; }
-  int GetNumeroTransiciones() const { return numero_transiciones_; }
+  Estado() : identificador_(-1), aceptacion_(false) {}
+  Estado(int identificador, bool aceptacion = false) 
+      : identificador_(identificador), aceptacion_(aceptacion) {}
+
+  int GetIdentificador() const { return identificador_; }
+  bool EsFinal() const { return aceptacion_; }
   std::set<Transicion> GetSetTransiciones() const { return transiciones_; }
-  // Setters
-  void SetNumeroEstado(unsigned numero_estados) { numero_estado_ = numero_estados; }
-  void SetEsAceptado(bool es_final) { es_final_ = es_final; }
-  void SetNumeroTransiciones(int numero_transiciones) {
-    numero_transiciones_ = numero_transiciones;
+
+  void SetIdentificador(int identificador) { identificador_ = identificador; }
+  void SetAceptacion(bool aceptacion) { aceptacion_ = aceptacion; }
+  void SetTransiciones(const std::set<Transicion>& transiciones) { 
+    transiciones_ = transiciones; 
   }
-  void SetSetTranscion(std::set<Transicion> transiciones) {
-    transiciones_ = transiciones;
+  void AgregarTransicion(const Transicion& transicion) {
+    transiciones_.insert(transicion);
   }
-  // Sobrecarga de operadores
-  bool operator<(const Estado& otro) {
-    return numero_estado_ < otro.numero_estado_;
+
+  bool operator<(const Estado& otro) const {
+    return identificador_ < otro.identificador_;
   }
-  friend std::istream& operator>>(std::istream& is, Estado& estado) {
-    is >> estado.numero_estado_;
-    return is;
+
+  bool operator==(const Estado& otro) const {
+    return identificador_ == otro.identificador_;
   }
+  friend std::istream& operator>>(std::istream& is, Estado& estado);
+  friend std::ostream& operator<<(std::ostream& os, const Estado& estado);
  private:
-  unsigned numero_estado_;
-  bool es_final_;
-  int numero_transiciones_;
+  int identificador_;
+  bool aceptacion_;
   std::set<Transicion> transiciones_;
 };
 
-#endif
+
+
+#endif  // ESTADO_H

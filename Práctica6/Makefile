@@ -1,7 +1,7 @@
 # Variables
 CC = g++
 CFLAGS = -Wall -g -std=c++11 -I./include
-TARGET = $(SRC_DIR)/p02_ejecutable
+TARGET = $(SRC_DIR)/p06_ejecutable
 
 # Directorios
 SRC_DIR = src
@@ -9,11 +9,10 @@ OBJ_DIR = obj
 INC_DIR = include
 
 # Archivos fuente
-SRCS = $(SRC_DIR)/p02_ejecutable.cc \
-       $(SRC_DIR)/clase_Alfabeto.cc \
-       $(SRC_DIR)/clase_Cadena.cc \
-       $(SRC_DIR)/clase_Lenguaje.cc \
-       $(SRC_DIR)/clase_Simbolo.cc
+SRCS = $(SRC_DIR)/p06_ejecutable.cc \
+       $(SRC_DIR)/automata.cc \
+       $(SRC_DIR)/simulador.cc \
+	   $(SRC_DIR)/estado.cc \
 
 # Archivos objeto
 OBJS = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
@@ -39,7 +38,7 @@ clean:
 
 # Ejecutar
 run: all
-	$(TARGET) $(SRC_DIR)/fichero_entrada.txt $(SRC_DIR)/fichero_salida.txt 5
+	$(TARGET) $(SRC_DIR)/input.fa $(SRC_DIR)/input.txt
 
 # Ayuda
 help:

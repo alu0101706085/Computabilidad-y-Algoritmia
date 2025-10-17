@@ -9,7 +9,7 @@ class Estructura {
  public:
   Estructura() = default;
   Estructura(std::set<char> alfabeto, unsigned numero_total_estados,
-             Estado estado_arranque, std::set<Estado> cadena_estados)
+             Estado& estado_arranque, std::set<Estado> cadena_estados)
       : alfabeto_(alfabeto),
         numero_total_estados_(numero_total_estados),
         estado_arranque_(estado_arranque),
@@ -19,12 +19,22 @@ class Estructura {
   unsigned GetNumeroTotalEstados() const { return numero_total_estados_; }
   Estado GetEstadoArranque() const { return estado_arranque_; }
   std::set<Estado> GetCadenaEstados() const { return cadena_estados_; }
+  Estado GetEstadoEspecifico(const int identificador) {
+    Estado estado_especifico;
+    for (const auto& estado : GetCadenaEstados()) {
+      if (estado.GetIdentificador() == identificador) {
+        estado_especifico = estado;
+      }
+    }
+    return estado_especifico;
+  }
   // Setters
   void SetNumeroTotalEstados(unsigned numero_total_estados) { numero_total_estados_ = numero_total_estados; }
-  void SetEstadoArranque(Estado estado_arranque) { estado_arranque_ = estado_arranque; }
+  void SetEstadoArranque(Estado& estado_arranque) { estado_arranque_ = estado_arranque; }
   // Métodos
   void AddCaracterAlfabeto(char caracter) { alfabeto_.insert(caracter); }
-  void AddCadenaEstados(Estado estado) { cadena_estados_.insert(estado); }
+  void AddCadenaEstados(Estado& estado) { cadena_estados_.insert(estado); }
+  
  private:
   std::set<char> alfabeto_;
   unsigned numero_total_estados_;
