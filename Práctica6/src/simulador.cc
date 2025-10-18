@@ -34,6 +34,7 @@ void Simulador::RealizarSimulador(const std::string& FicheroDeEntrada,
   while (FicheroLectura >> cadena) {
     MostrarResultado(cadena, estructura);
   }
+  FicheroLectura.close();
 }
 
 void Simulador::MostrarResultado(const std::string& cadena,
@@ -46,10 +47,15 @@ void Simulador::MostrarResultado(const std::string& cadena,
 bool Simulador::AnalizarCadena(const std::string& cadena,
                                Estructura& estructura) {
   bool es_aceptado{false};
-  std::set<Estado> estados_actuales = {estructura.GetEstadoArranque()};
+  // Use the fully defined start state (with transitions) stored in estructura
+  Estado estado_inicio =
+      estructura.GetEstadoEspecifico(estructura.GetEstadoArranque().GetIdentificador());
+  std::set<Estado> estados_actuales = {estado_inicio};
   for (char c : cadena) {
     if (!VerificarValorTransicion(c, estructura)) {
-      return false;
+      std::cerr << "Error, el valor de transicion no pertenece al alfabeto"
+                << std::endl;
+      break;
     }
     estados_actuales = AvanzarEstado(estados_actuales, c, estructura);
     if (estados_actuales.empty()) {
@@ -65,9 +71,9 @@ bool Simulador::AnalizarCadena(const std::string& cadena,
   return es_aceptado;
 }
 
-std::set<Estado> Simulador::AvanzarEstado(const std::set<Estado> cadena_estados,
-                                          char simbolo,
-                                          Estructura& estructura) {
+std::set<Estado> Simulador::AvanzarEstado(
+    const std::set<Estado>& cadena_estados, char simbolo,
+    Estructura& estructura) {
   std::set<Estado> estados_siguientes;
   for (const auto& estado : cadena_estados) {
     for (const auto& transiciones : estado.GetSetTransiciones()) {

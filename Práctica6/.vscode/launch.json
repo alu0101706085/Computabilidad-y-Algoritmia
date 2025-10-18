@@ -5,7 +5,7 @@
             "name": "Debug P06 Automata Simulator",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/src/p06_ejecutable",
+            "program": "${workspaceFolder}/src/p06_ejecutable.cc",
             "args": [
                 "${workspaceFolder}/src/input.fa",
                 "${workspaceFolder}/src/input.txt"
