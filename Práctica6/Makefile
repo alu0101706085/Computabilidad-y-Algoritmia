@@ -1,6 +1,6 @@
 # Variables
 CC = g++
-CFLAGS = -Wall -g -std=c++11 -I./include
+CFLAGS = -std=c++14 -g -Wall -I./include
 TARGET = $(SRC_DIR)/p06_ejecutable
 
 # Directorios

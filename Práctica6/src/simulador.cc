@@ -1,3 +1,20 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 6: Diseño e implementación de un simulador de autómatas finitos
+// Autor: David Javier Rodríguez Fumero
+// Correo: alu0101706085@ull.edu.es
+// Fecha: 18/10/2025
+// Archivo simulador.cc: Programa encargado de leer un fichero .txt con cadenas
+// cualquieras y comprobar si esas cadenas son aceptadas o no por el autómata
+// definido.
+// Referencias:
+// https://google.github.io/styleguide/cppguide.html
+// Enlaces de interés:
+// https://campusvirtual.ull.es/2526/ingenieriaytecnologia/mod/resource/view.php?id=11856
+
 #include "../include/simulador.h"
 
 #include <iostream>
@@ -15,7 +32,6 @@ void Simulador::RealizarSimulador(const std::string& FicheroDeEntrada,
   }
   std::string cadena;
   while (FicheroLectura >> cadena) {
-    std::set<Estado> estados_actuales;
     MostrarResultado(cadena, estructura);
   }
 }
@@ -27,32 +43,42 @@ void Simulador::MostrarResultado(const std::string& cadena,
             << std::endl;
 }
 
-std::set<Estado> Simulador::AvanzarEstado(const std::set<Estado> cadena_estados, char simbolo) {
+bool Simulador::AnalizarCadena(const std::string& cadena,
+                               Estructura& estructura) {
+  bool es_aceptado{false};
+  std::set<Estado> estados_actuales = {estructura.GetEstadoArranque()};
+  for (char c : cadena) {
+    if (!VerificarValorTransicion(c, estructura)) {
+      return false;
+    }
+    estados_actuales = AvanzarEstado(estados_actuales, c, estructura);
+    if (estados_actuales.empty()) {
+      es_aceptado = false;
+    }
+  }
+  // Verifica si el estado es de aceptacion
+  for (Estado estado : estados_actuales) {
+    if (estado.EsFinal()) {
+      es_aceptado = true;
+    }
+  }
+  return es_aceptado;
+}
+
+std::set<Estado> Simulador::AvanzarEstado(const std::set<Estado> cadena_estados,
+                                          char simbolo,
+                                          Estructura& estructura) {
   std::set<Estado> estados_siguientes;
   for (const auto& estado : cadena_estados) {
-    if (estado.GetIdentificador() == simbolo) {
-      estados_siguientes.insert(estado);
+    for (const auto& transiciones : estado.GetSetTransiciones()) {
+      if (transiciones.GetValorTransicion() == simbolo) {
+        Estado destino =
+            estructura.GetEstadoEspecifico(transiciones.GetDestino());
+        estados_siguientes.insert(destino);
+      }
     }
   }
   return estados_siguientes;
-}
-
-bool Simulador::AnalizarCadena(const std::string& cadena, Estructura& estructura) {
-  std::set<Estado> estados_actuales = {estructura.GetEstadoArranque()};
-  for (char c : cadena) {
-    estados_actuales = AvanzarEstado(estados_actuales, c);
-    if (estados_actuales.empty()) {
-      return false;
-    }
-  }
-    //Verifica si el estado es de aceptacion
-  for (Estado estado : estados_actuales) {
-    int numero_estado = estado.GetIdentificador();
-    if (estructura.GetEstadoEspecifico(numero_estado).EsFinal()) {
-      return true;
-    }
-  }
-  return false;  
 }
 
 // Comprobaciones
