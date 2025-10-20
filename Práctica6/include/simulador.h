@@ -23,18 +23,18 @@
 
 class Simulador {
  public:
+  // Constructor
   Simulador() = default;
+  // Métodos
   void RealizarSimulador(const std::string& FicheroDeEntrada,
                          Estructura estructura);
   bool AnalizarCadena(const std::string& cadena, Estructura& estructura);
-    std::set<Estado> AvanzarEstado(const std::set<Estado>& cadena_estados,
-                                                                 char simbolo, Estructura& estructura);
+  std::set<Estado> AvanzarEstado(const std::set<Estado>& cadena_estados,
+                                 char simbolo, Estructura& estructura);
   void MostrarResultado(const std::string& cadena, Estructura& estructura);
   // Comprobaciones
   bool VerificarValorTransicion(const char simbolo,
                                 const Estructura& estructura);
-
- private:
 };
 
 #endif

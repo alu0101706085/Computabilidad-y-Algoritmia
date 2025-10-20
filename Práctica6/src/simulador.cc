@@ -8,7 +8,7 @@
 // Correo: alu0101706085@ull.edu.es
 // Fecha: 18/10/2025
 // Archivo simulador.cc: Programa encargado de leer un fichero .txt con cadenas
-// cualquieras y comprobar si esas cadenas son aceptadas o no por el autómata
+// cualquiera y comprobar si esas cadenas son aceptadas o no por el autómata
 // definido.
 // Referencias:
 // https://google.github.io/styleguide/cppguide.html
@@ -18,18 +18,28 @@
 #include "../include/simulador.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "../include/estado.h"
 #include "../include/estructura.h"
-#include "fstream"
 
+/**
+ * @brief Ejecuta el simulador de autómatas con las cadenas del fichero indicado.
+ *
+ * Lee un archivo de texto línea por línea y determina si cada cadena es
+ * aceptada o rechazada por el autómata definido en la estructura.
+ *
+ * @param FicheroDeEntrada Nombre del fichero que contiene las cadenas de entrada.
+ * @param estructura Objeto que representa la estructura del autómata (alfabeto, estados, transiciones, etc.).
+ */
 void Simulador::RealizarSimulador(const std::string& FicheroDeEntrada,
                                   Estructura estructura) {
   std::ifstream FicheroLectura(FicheroDeEntrada);
   if (!FicheroLectura) {
-    std::cerr << "Error, no se pudo abrir el fichero de salida" << std::endl;
+    std::cerr << "Error, no se pudo abrir el fichero de entrada" << std::endl;
     return;
   }
+
   std::string cadena;
   while (FicheroLectura >> cadena) {
     MostrarResultado(cadena, estructura);
@@ -37,6 +47,15 @@ void Simulador::RealizarSimulador(const std::string& FicheroDeEntrada,
   FicheroLectura.close();
 }
 
+/**
+ * @brief Muestra por pantalla el resultado de analizar una cadena.
+ *
+ * Determina si la cadena es aceptada por el autómata y muestra el resultado
+ * en formato: "cadena --- Accepted" o "cadena --- Rejected"
+ *
+ * @param cadena Cadena que se desea evaluar.
+ * @param estructura Referencia a la estructura del autómata.
+ */
 void Simulador::MostrarResultado(const std::string& cadena,
                                  Estructura& estructura) {
   bool aceptada = AnalizarCadena(cadena, estructura);
@@ -44,42 +63,74 @@ void Simulador::MostrarResultado(const std::string& cadena,
             << std::endl;
 }
 
+/**
+ * @brief Analiza una cadena para determinar si es aceptada por el autómata.
+ *
+ * Recorre los estados del autómata según las transiciones definidas,
+ * comenzando desde el estado inicial y verificando si alguno de los estados
+ * finales es alcanzado al consumir toda la cadena.
+ *
+ * @param cadena Cadena de entrada a evaluar.
+ * @param estructura Referencia a la estructura del autómata.
+ * @return true Si la cadena es aceptada.
+ * @return false Si la cadena es rechazada.
+ */
 bool Simulador::AnalizarCadena(const std::string& cadena,
                                Estructura& estructura) {
   bool es_aceptado{false};
-  // Use the fully defined start state (with transitions) stored in estructura
+
+  // Estado inicial completo con sus transiciones
   Estado estado_inicio =
       estructura.GetEstadoEspecifico(estructura.GetEstadoArranque().GetIdentificador());
   std::set<Estado> estados_actuales = {estado_inicio};
+
   for (char c : cadena) {
     if (!VerificarValorTransicion(c, estructura)) {
-      std::cerr << "Error, el valor de transicion no pertenece al alfabeto"
+      std::cerr << "Error, el valor de transición no pertenece al alfabeto"
                 << std::endl;
       break;
     }
+
     estados_actuales = AvanzarEstado(estados_actuales, c, estructura);
+
     if (estados_actuales.empty()) {
       es_aceptado = false;
     }
   }
-  // Verifica si el estado es de aceptacion
-  for (Estado estado : estados_actuales) {
+
+  // Verifica si alguno de los estados actuales es de aceptación
+  for (const Estado& estado : estados_actuales) {
     if (estado.EsFinal()) {
       es_aceptado = true;
+      break;
     }
   }
+
   return es_aceptado;
 }
 
+/**
+ * @brief Avanza los estados actuales según el símbolo leído.
+ *
+ * Para cada estado actual, se buscan transiciones cuyo símbolo coincida
+ * con el recibido. Los estados destino de dichas transiciones se añaden al
+ * nuevo conjunto de estados.
+ *
+ * @param cadena_estados Conjunto de estados actuales.
+ * @param simbolo Símbolo de entrada actual.
+ * @param estructura Referencia a la estructura del autómata.
+ * @return Conjunto de estados alcanzables tras consumir el símbolo.
+ */
 std::set<Estado> Simulador::AvanzarEstado(
     const std::set<Estado>& cadena_estados, char simbolo,
     Estructura& estructura) {
   std::set<Estado> estados_siguientes;
+
   for (const auto& estado : cadena_estados) {
-    for (const auto& transiciones : estado.GetSetTransiciones()) {
-      if (transiciones.GetValorTransicion() == simbolo) {
+    for (const auto& transicion : estado.GetSetTransiciones()) {
+      if (transicion.GetValorTransicion() == simbolo) {
         Estado destino =
-            estructura.GetEstadoEspecifico(transiciones.GetDestino());
+            estructura.GetEstadoEspecifico(transicion.GetDestino());
         estados_siguientes.insert(destino);
       }
     }
@@ -87,7 +138,14 @@ std::set<Estado> Simulador::AvanzarEstado(
   return estados_siguientes;
 }
 
-// Comprobaciones
+/**
+ * @brief Comprueba si un símbolo pertenece al alfabeto del autómata.
+ *
+ * @param simbolo Símbolo que se desea verificar.
+ * @param estructura Estructura del autómata.
+ * @return true Si el símbolo pertenece al alfabeto.
+ * @return false Si el símbolo no pertenece al alfabeto.
+ */
 bool Simulador::VerificarValorTransicion(const char simbolo,
                                          const Estructura& estructura) {
   std::set<char> alfabeto = estructura.GetAlfabeto();

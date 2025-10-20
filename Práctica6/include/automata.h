@@ -22,11 +22,14 @@
 
 class Automata {
  public:
+  // Constructor
   Automata() = default;
+  // Métodos públicos
   void DefinirAutomata(const std::string& FicheroDeEntrada,
                        Estructura& estructura);
 
  private:
+  // Métodos privados 
   void DetectarAlfabeto(std::ifstream& FicheroLectura, Estructura& estructura);
   void DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura,
                                           Estructura& estructura);

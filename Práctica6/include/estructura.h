@@ -45,16 +45,7 @@ class Estructura {
   // Métodos
   void AddCaracterAlfabeto(char caracter) { alfabeto_.insert(caracter); }
   void AddCadenaEstados(Estado& estado) { cadena_estados_.insert(estado); }
-  Estado GetEstadoEspecifico(const int identificador) {
-    Estado estado_especifico;
-    for (const auto& estado : GetCadenaEstados()) {
-      if (estado.GetIdentificador() == identificador) {
-        estado_especifico = estado;
-      }
-    }
-    return estado_especifico;
-  }
-
+  Estado GetEstadoEspecifico(const int identificador);
  private:
   std::set<char> alfabeto_;
   unsigned numero_total_estados_;

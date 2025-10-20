@@ -17,8 +17,11 @@
 #ifndef TRANSICION_H
 #define TRANSICION_H
 
+#include <iostream>
+
 class Transicion {
  public:
+  // Constructores
   Transicion() = default;
   Transicion(int destino, char valor_transicion)
       : destino_(destino), valor_transicion_(valor_transicion) {}
@@ -31,19 +34,11 @@ class Transicion {
     valor_transicion_ = valor_transicion;
   }
   // Sobrecarga de operadores
-  bool operator<(const Transicion& otro) const {
-    if (valor_transicion_ == otro.valor_transicion_)
-      return destino_ < otro.destino_;
-    return valor_transicion_ < otro.valor_transicion_;
-  }
-  friend std::istream& operator>>(std::istream& is, Transicion& transicion) {
-    is >> transicion.valor_transicion_;
-    return is;
-  }
-
+  bool operator<(const Transicion& otro) const;
+  friend std::istream& operator>>(std::istream& is, Transicion& transicion);
  private:
   int destino_;
   char valor_transicion_;
 };
 
-#endif
+#endif // TRANSICION_H

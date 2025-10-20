@@ -13,6 +13,8 @@ SRCS = $(SRC_DIR)/p06_ejecutable.cc \
        $(SRC_DIR)/automata.cc \
        $(SRC_DIR)/simulador.cc \
 	   $(SRC_DIR)/estado.cc \
+	   $(SRC_DIR)/transicion.cc \
+	   $(SRC_DIR)/estructura.cc \
 
 # Archivos objeto
 OBJS = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
