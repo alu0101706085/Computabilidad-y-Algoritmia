@@ -45,21 +45,37 @@
  * @return 0 Si la ejecución finaliza correctamente.
  */
 int main(int argc, char* argv[]) {
-  Estructura estructura;
-  Automata automata;
-  // Carga la definición del autómata desde el fichero .fa
-  automata.DefinirAutomata(argv[1], estructura);
-  Simulador simulador;
-  // Simula el procesamiento de las cadenas del fichero de entrada
-  simulador.RealizarSimulador(argv[2], estructura);
-  // Modificaciones
-  // Muestra si un automata es DFA o NFA
-  Modificacion modificacion;
-  if (!modificacion.EsDFA(estructura)) {
-    std::cout << "El autómata finito proporcionado es un no determinista. Es un NFA" << std::endl;
+  if (argc == 2 && std::string(argv[1]) == "--help") {
+    std::cout << "Modo de uso: ./p06_automata_simulator input.fa input.txt\n";
+    std::cout << "El programa se encarga de ir leyendo cada linea del fichero .fa\n";
+    std::cout << "con el fin de determinar la estructura de un autómata finito\n";
+    std::cout << std::endl;
+    std::cout << "Con estos datos determinara el comportamiento del autómata para determinar \n"
+                 "si las cadenas de input.txt son aceptadas por al automata o no.\n";
+    return 1;
+  } else if (argc != 3) {
+    std::cout << "Modo de empleo: ./p06_automata_simulator input.fa input.txt"
+              << std::endl;
+    std::cout << "Pruebe './p06_automata_simulator --help' para mas informacion."
+              << std::endl;
+    return 1;
   } else {
-    std::cout << "El autómata finito proporcionado es determinista. Es un DFA" << std::endl;
+    Estructura estructura;
+    Automata automata;
+    // Carga la definición del autómata desde el fichero .fa
+    automata.DefinirAutomata(argv[1], estructura);
+    Simulador simulador;
+    // Simula el procesamiento de las cadenas del fichero de entrada
+    simulador.RealizarSimulador(argv[2], estructura);
+    // Modificaciones
+    // Muestra si un automata es DFA o NFA
+    Modificacion modificacion;
+    if (!modificacion.EsDFA(estructura)) {
+      std::cout << "El autómata finito proporcionado es un no determinista. Es un NFA" << std::endl;
+    } else {
+      std::cout << "El autómata finito proporcionado es determinista. Es un DFA" << std::endl;
+    }
+    modificacion.MotrarEstadosAlcanzables(0, estructura); 
   }
-  modificacion.MotrarEstadosAlcanzables(0, estructura);
   return 0;
 }

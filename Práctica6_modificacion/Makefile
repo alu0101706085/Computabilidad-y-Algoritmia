@@ -1,7 +1,7 @@
 # Variables
 CC = g++
 CFLAGS = -std=c++14 -g -Wall -I./include
-TARGET = $(SRC_DIR)/p06_ejecutable
+TARGET = $(SRC_DIR)/p06_automata_simulator
 
 # Directorios
 SRC_DIR = src
@@ -9,7 +9,7 @@ OBJ_DIR = obj
 INC_DIR = include
 
 # Archivos fuente
-SRCS = $(SRC_DIR)/p06_ejecutable.cc \
+SRCS = $(SRC_DIR)/p06_automata_simulator.cc \
        $(SRC_DIR)/automata.cc \
        $(SRC_DIR)/simulador.cc \
 	   $(SRC_DIR)/estado.cc \

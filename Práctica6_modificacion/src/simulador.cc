@@ -17,20 +17,23 @@
 
 #include "../include/simulador.h"
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include "../include/estado.h"
 #include "../include/estructura.h"
 
 /**
- * @brief Ejecuta el simulador de autómatas con las cadenas del fichero indicado.
+ * @brief Ejecuta el simulador de autómatas con las cadenas del fichero
+ * indicado.
  *
  * Lee un archivo de texto línea por línea y determina si cada cadena es
  * aceptada o rechazada por el autómata definido en la estructura.
  *
- * @param FicheroDeEntrada Nombre del fichero que contiene las cadenas de entrada.
- * @param estructura Objeto que representa la estructura del autómata (alfabeto, estados, transiciones, etc.).
+ * @param FicheroDeEntrada Nombre del fichero que contiene las cadenas de
+ * entrada.
+ * @param estructura Objeto que representa la estructura del autómata (alfabeto,
+ * estados, transiciones, etc.).
  */
 void Simulador::RealizarSimulador(const std::string& FicheroDeEntrada,
                                   Estructura estructura) {
@@ -39,7 +42,6 @@ void Simulador::RealizarSimulador(const std::string& FicheroDeEntrada,
     std::cerr << "Error, no se pudo abrir el fichero de entrada" << std::endl;
     return;
   }
-
   std::string cadena;
   while (FicheroLectura >> cadena) {
     MostrarResultado(cadena, estructura);
@@ -80,8 +82,8 @@ bool Simulador::AnalizarCadena(const std::string& cadena,
   bool es_aceptado{false};
 
   // Estado inicial completo con sus transiciones
-  Estado estado_inicio =
-      estructura.GetEstadoEspecifico(estructura.GetEstadoArranque().GetIdentificador());
+  Estado estado_inicio = estructura.GetEstadoEspecifico(
+      estructura.GetEstadoArranque().GetIdentificador());
   std::set<Estado> estados_actuales = {estado_inicio};
 
   for (char c : cadena) {
@@ -90,9 +92,7 @@ bool Simulador::AnalizarCadena(const std::string& cadena,
                 << std::endl;
       break;
     }
-
     estados_actuales = AvanzarEstado(estados_actuales, c, estructura);
-
     if (estados_actuales.empty()) {
       es_aceptado = false;
     }
@@ -100,12 +100,11 @@ bool Simulador::AnalizarCadena(const std::string& cadena,
 
   // Verifica si alguno de los estados actuales es de aceptación
   for (const Estado& estado : estados_actuales) {
-    if (estado.EsFinal()) {
+    if (estado.GetEsFinal()) {
       es_aceptado = true;
       break;
     }
   }
-
   return es_aceptado;
 }
 
@@ -148,6 +147,9 @@ std::set<Estado> Simulador::AvanzarEstado(
  */
 bool Simulador::VerificarValorTransicion(const char simbolo,
                                          const Estructura& estructura) {
-  std::set<char> alfabeto = estructura.GetAlfabeto();
-  return alfabeto.find(simbolo) != alfabeto.end();
+  if (simbolo != '&') {
+    std::set<char> alfabeto = estructura.GetAlfabeto();
+    return alfabeto.find(simbolo) != alfabeto.end();
+  }
+  return true;
 }

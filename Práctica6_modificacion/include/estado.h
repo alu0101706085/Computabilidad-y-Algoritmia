@@ -30,7 +30,7 @@ class Estado {
       : identificador_(identificador), aceptacion_(aceptacion) {}
   // Getters
   int GetIdentificador() const { return identificador_; }
-  bool EsFinal() const { return aceptacion_; }
+  bool GetEsFinal() const { return aceptacion_; }
   const std::set<Transicion>& GetSetTransiciones() const { return transiciones_; }
   // Setters
   void SetIdentificador(int identificador) { identificador_ = identificador; }

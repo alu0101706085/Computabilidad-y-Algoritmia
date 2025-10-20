@@ -31,8 +31,10 @@
  * de estados, estado inicial, estados de aceptación y sus transiciones)
  * y carga esta información en la estructura interna del programa.
  *
- * @param FicheroDeEntrada Nombre del fichero .fa que contiene la descripción del autómata.
- * @param estructura Objeto Estructura donde se almacenará la información del autómata.
+ * @param FicheroDeEntrada Nombre del fichero .fa que contiene la descripción
+ * del autómata.
+ * @param estructura Objeto Estructura donde se almacenará la información del
+ * autómata.
  */
 void Automata::DefinirAutomata(const std::string& FicheroDeEntrada,
                                Estructura& estructura) {
@@ -41,11 +43,9 @@ void Automata::DefinirAutomata(const std::string& FicheroDeEntrada,
     std::cerr << "Error, no se pudo abrir el fichero de entrada" << std::endl;
     return;
   }
-
   DetectarAlfabeto(FicheroLectura, estructura);
   DetectarTotalEstadosYEstadoInicial(FicheroLectura, estructura);
   DetectarEstados(FicheroLectura, estructura);
-
   FicheroLectura.close();
 }
 
@@ -63,7 +63,6 @@ void Automata::DetectarAlfabeto(std::ifstream& FicheroLectura,
                                 Estructura& estructura) {
   std::string linea;
   std::getline(FicheroLectura, linea);
-
   for (char simbolo : linea) {
     if (simbolo == '&') {
       std::cerr << "El alfabeto no puede definirse con una cadena vacía"
@@ -88,10 +87,8 @@ void Automata::DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura,
                                                   Estructura& estructura) {
   unsigned numero_total_estados{0};
   unsigned identificador_estado_inicial;
-
   FicheroLectura >> numero_total_estados;
   estructura.SetNumeroTotalEstados(numero_total_estados);
-
   FicheroLectura >> identificador_estado_inicial;
   Estado estado_inicial;
   estado_inicial.SetIdentificador(identificador_estado_inicial);
@@ -108,38 +105,37 @@ void Automata::DetectarTotalEstadosYEstadoInicial(std::ifstream& FicheroLectura,
  * Todos los estados procesados se almacenan en la estructura del autómata.
  *
  * @param FicheroLectura Flujo de entrada del fichero .fa.
- * @param estructura Referencia a la estructura donde se almacenarán los estados.
+ * @param estructura Referencia a la estructura donde se almacenarán los
+ * estados.
  */
 void Automata::DetectarEstados(std::ifstream& FicheroLectura,
                                Estructura& estructura) {
   unsigned numero_total_estados = estructura.GetNumeroTotalEstados();
-
   for (unsigned i = 0; i < numero_total_estados; ++i) {
     unsigned numero_estado;
     bool es_final;
     unsigned numero_transiciones;
-
     FicheroLectura >> numero_estado >> es_final >> numero_transiciones;
-
     Estado estado;
     estado.SetIdentificador(numero_estado);
     estado.SetAceptacion(es_final);
-
     std::set<Transicion> transiciones;
-
     for (unsigned j = 0; j < numero_transiciones; ++j) {
       char valor_transicion;
       int destino;
-
       FicheroLectura >> valor_transicion >> destino;
-
       Transicion transicion;
       transicion.SetValorTransicion(valor_transicion);
       transicion.SetDestino(destino);
       transiciones.insert(transicion);
     }
-
     estado.SetTransiciones(transiciones);
     estructura.AddCadenaEstados(estado);
+  }
+  if (estructura.GetCadenaEstados().size() != numero_total_estados) {
+    std::cerr << "Error: el número de estados leídos ("
+              << estructura.GetCadenaEstados().size()
+              << ") no coincide con el número declarado ("
+              << numero_total_estados << ")." << std::endl;
   }
 }

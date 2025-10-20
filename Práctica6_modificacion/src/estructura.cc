@@ -7,7 +7,7 @@
 // Autor: David Javier Rodríguez Fumero
 // Correo: alu0101706085@ull.edu.es
 // Fecha: 18/10/2025
-// Archivo transicion.cc: Programa encargado de definir los métodos de la clase
+// Archivo estructura.cc: Programa encargado de definir los métodos de la clase
 // estructura.
 // Referencias: https://google.github.io/styleguide/cppguide.html
 // Enlaces de interés:
