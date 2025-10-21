@@ -85,19 +85,48 @@ bool Simulador::AnalizarCadena(const std::string& cadena,
   Estado estado_inicio = estructura.GetEstadoEspecifico(
       estructura.GetEstadoArranque().GetIdentificador());
   std::set<Estado> estados_actuales = {estado_inicio};
-
+  
+  std::cout << std::endl;
   for (char c : cadena) {
     if (!VerificarValorTransicion(c, estructura)) {
       std::cerr << "Error, el valor de transición no pertenece al alfabeto"
                 << std::endl;
       break;
     }
-    estados_actuales = AvanzarEstado(estados_actuales, c, estructura);
-    if (estados_actuales.empty()) {
-      es_aceptado = false;
+    // Modificacion
+    std::cout << "Estados actuales: { ";
+    for (const auto& estado : estados_actuales) {
+      std::cout << estado.GetIdentificador() << " ";
     }
-  }
-
+    std::cout << "} " << std::endl;
+    std::cout << "Entradas: ";
+    std::set<char> entradas;
+    for (const auto& simbolo : cadena) {
+      std::cout << simbolo;
+    }
+    for (char entrada : entradas) {
+      std::cout << entrada << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "Traces: " << std::endl;
+    for (const auto& estado : estados_actuales) {
+      for (const auto& transicion : estado.GetSetTransiciones()) {
+        std::cout << "(" << estado.GetIdentificador() << ", " 
+                  << transicion.GetValorTransicion() << ") -> " 
+                  << transicion.GetDestino() << std::endl;
+      }
+    }
+      estados_actuales = AvanzarEstado(estados_actuales, c, estructura);
+      std::cout << "Estados siguientes: { ";
+      for (const auto& estado : estados_actuales) {
+        std::cout << estado.GetIdentificador() << " ";
+      }
+      std::cout << "} " << std::endl;
+      std::cout << std::endl;
+        if (estados_actuales.empty()) {
+          es_aceptado = false;
+        }
+      }
   // Verifica si alguno de los estados actuales es de aceptación
   for (const Estado& estado : estados_actuales) {
     if (estado.GetEsFinal()) {

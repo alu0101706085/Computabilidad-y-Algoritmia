@@ -21,8 +21,6 @@
 #include "../include/estructura.h"
 #include "../include/simulador.h"
 #include "../include/transicion.h"
-// Modificacion
-#include "../include/modificacion.h"
 
 /**
  * @brief Función principal del programa.
@@ -67,15 +65,6 @@ int main(int argc, char* argv[]) {
     Simulador simulador;
     // Simula el procesamiento de las cadenas del fichero de entrada
     simulador.RealizarSimulador(argv[2], estructura);
-    // Modificaciones
-    // Muestra si un automata es DFA o NFA
-    Modificacion modificacion;
-    if (!modificacion.EsDFA(estructura)) {
-      std::cout << "El autómata finito proporcionado es un no determinista. Es un NFA" << std::endl;
-    } else {
-      std::cout << "El autómata finito proporcionado es determinista. Es un DFA" << std::endl;
-    }
-    modificacion.MotrarEstadosAlcanzables(0, estructura); 
   }
   return 0;
 }
