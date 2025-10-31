@@ -2,9 +2,10 @@
 
 #include "../include/gramatica.h"
 #include "../include/lector_gramatica.h"
+#include "../include/escritor_gramatica.h"
 
 int main(int argc, char* argv[]) {
-  if (argv[1] == "--help") {
+  if (std::string(argv[1]) == "--help") {
     std::cout << "Modo de uso: ./Grammar2CNF input.gra output.gra\n";
     std::cout << "El programa se encarga de ir leyendo cada linea del fichero "
                  "de entrada\n";
@@ -26,4 +27,8 @@ int main(int argc, char* argv[]) {
   Gramatica gramatica;
   LectorGramatica generador;
   generador.GenerarGramatica(argv[1], gramatica);
+  gramatica.TransformarGramatica();
+  EscritorGramatica guardar_resultado;
+  guardar_resultado.EscribirFNC(argv[2], gramatica);
+  return 0;
 }

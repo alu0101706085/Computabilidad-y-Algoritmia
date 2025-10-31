@@ -25,12 +25,10 @@ class Gramatica {
   // Métodos privados
   bool TieneProduccionesUnitarias();
   bool TieneEpsilonProducciones();
-  void EliminarProduccionesVacias();
-  void EliminarProduccionesUnitarias();
   void ConvertirFormaNormalChomsky();
   // Atributos
-  std::set<Simbolo> no_terminales_;
   std::set<Simbolo> terminales_;
+  std::set<Simbolo> no_terminales_;
   Simbolo estado_arranque_;
   std::vector<Produccion> producciones_;
 };

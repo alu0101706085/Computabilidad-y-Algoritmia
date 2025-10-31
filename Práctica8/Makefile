@@ -1,7 +1,7 @@
 # Variables
 CC = g++
 CFLAGS = -std=c++14 -g -Wall -I./include
-TARGET = $(SRC_DIR)/p06_automata_simulator
+TARGET = $(SRC_DIR)/Grammar2CNF
 
 # Directorios
 SRC_DIR = src
@@ -9,12 +9,12 @@ OBJ_DIR = obj
 INC_DIR = include
 
 # Archivos fuente
-SRCS = $(SRC_DIR)/p06_automata_simulator.cc \
-       $(SRC_DIR)/automata.cc \
-       $(SRC_DIR)/simulador.cc \
-	   $(SRC_DIR)/estado.cc \
-	   $(SRC_DIR)/transicion.cc \
-	   $(SRC_DIR)/estructura.cc \
+SRCS = $(SRC_DIR)/Grammar2CNF.cc \
+       $(SRC_DIR)/simbolo.cc \
+       $(SRC_DIR)/produccion.cc \
+	   $(SRC_DIR)/lector_gramatica.cc \
+	   $(SRC_DIR)/escritor_gramatica.cc \
+	   $(SRC_DIR)/gramatica.cc \
 
 # Archivos objeto
 OBJS = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRCS))
@@ -40,7 +40,7 @@ clean:
 
 # Ejecutar
 run: all
-	$(TARGET) $(SRC_DIR)/input.fa $(SRC_DIR)/input.txt
+	$(TARGET) $(SRC_DIR)/input.gra $(SRC_DIR)/output.gra
 
 # Ayuda
 help:

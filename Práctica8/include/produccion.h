@@ -13,8 +13,8 @@ class Produccion {
   Simbolo GetSimbolo() const { return no_terminal_; }
   std::vector<Simbolo> GetSecuencia() const { return secuencia_; }
   // Setters
-  void SetSimbolo(Simbolo no_terminal) { no_terminal_ = no_terminal; }
-  void SetSecuencia(std::vector<Simbolo> secuencia) { secuencia_ = secuencia; }
+  void SetSimbolo(const Simbolo& no_terminal) { no_terminal_ = no_terminal; }
+  void SetSecuencia(const std::vector<Simbolo>& secuencia) { secuencia_ = secuencia; }
   // Métodos
   bool EsUnitaria() const;
   // Sobrecarga de E/S

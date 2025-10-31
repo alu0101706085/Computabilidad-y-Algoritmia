@@ -5,12 +5,13 @@
 
 class Simbolo {
  public:
-  Simbolo() : simbolo_('\0') {}  // Inicializar a valor por defecto
-  Simbolo(char caracter) : simbolo_(caracter) {}
+  Simbolo() = default;
+  Simbolo(std::string caracter, bool es_terminal) : simbolo_(caracter), es_terminal_(es_terminal) {}
   // Getter
-  char GetSimbolo() const { return simbolo_; }
+  std::string GetSimbolo() const { return simbolo_; }
   bool GetEsTerminal() const { return es_terminal_; }
   // Setter
+  void SetSimbolo (const Simbolo& simbolo) { simbolo_ = simbolo.GetSimbolo(); }
   void SetEsTerminal(bool es_terminal) { es_terminal_ = es_terminal; }
   // Operadores de comparación
   bool operator<(const Simbolo& otro) const { return simbolo_ < otro.simbolo_; }
@@ -24,7 +25,7 @@ class Simbolo {
   friend std::ostream& operator<<(std::ostream& os, const Simbolo& simbolo);
   friend std::istream& operator>>(std::istream& is, Simbolo& simbolo);
  private:
-  char simbolo_;
+  std::string simbolo_;
   bool es_terminal_;
 };
 
