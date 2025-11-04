@@ -14,6 +14,7 @@ SRCS = $(SRC_DIR)/Grammar2CNF.cc \
        $(SRC_DIR)/produccion.cc \
 	   $(SRC_DIR)/lector_gramatica.cc \
 	   $(SRC_DIR)/escritor_gramatica.cc \
+	   $(SRC_DIR)/modificacion.cc \
 	   $(SRC_DIR)/gramatica.cc \
 
 # Archivos objeto

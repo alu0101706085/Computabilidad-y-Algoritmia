@@ -18,6 +18,7 @@
 #include "../include/gramatica.h"
 #include "../include/lector_gramatica.h"
 #include "../include/escritor_gramatica.h"
+#include "../include/modificacion.h"
 
 /**
  * @brief Programa principal que convierte una gramática a su Forma Normal de Chomsky (FNC).
@@ -43,6 +44,11 @@ int main(int argc, char* argv[]) {
   Gramatica gramatica;
   LectorGramatica generador;
   generador.GenerarGramatica(argv[1], gramatica);
+  Modificacion modificacion;
+  if (modificacion.VerificarFNC(gramatica)) {
+    std::cerr << "La gramática presentada ya esta en forma normal de chomsky" << std::endl;
+    return 0;
+  }
   gramatica.TransformarGramatica();
   EscritorGramatica guardar_resultado;
   guardar_resultado.EscribirFNC(argv[2], gramatica);
