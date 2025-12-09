@@ -31,8 +31,6 @@ namespace EMST {
     }
 
     // 2. Bucle Voraz: Procesar aristas.
-    // Al haber cambiado el orden en CalcularVectorAristas, ahora procesamos
-    // las aristas más COSTOSAS primero.
     for (const CyA::AristaPonderada& arista_pond : todas_aristas) {
       int id_arbol_1, id_arbol_2;
       EncontrarSubArbolesIncidentes(bosque, arista_pond.second, id_arbol_1, id_arbol_2);
@@ -114,7 +112,6 @@ namespace EMST {
   }
 
   void PointSet::EscribirArbol(std::ostream& os) const {
-    // os << "Árbol Generador MÁXIMO:" << std::endl; 
     for (const auto& arista : emst_aristas_) {
       os << "(" << arista.first.first << ", " << arista.first.second << ") -> "
          << "(" << arista.second.first << ", " << arista.second.second << ")"
@@ -124,7 +121,7 @@ namespace EMST {
   }
 
   void PointSet::EscribirDOT(std::ostream& os) const {
-    os << "graph MaxST {" << std::endl; // Cambié el nombre del grafo a MaxST
+    os << "graph MaxST {" << std::endl;
     os << "  node [shape=circle, style=filled, fillcolor=white];" << std::endl;
 
     std::map<CyA::Punto, int> ids_puntos;
