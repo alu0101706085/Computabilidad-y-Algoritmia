@@ -1,6 +1,6 @@
 /**
  * @file point_set.cpp
- * @brief Implementación del algoritmo EMST (Kruskal) y salidas.
+ * @brief Implementación para calcular el Árbol de Expansión MÁXIMA.
  */
 
 #include "point_set.hpp"
@@ -30,7 +30,9 @@ namespace EMST {
       bosque.push_back(sub_arbol);
     }
 
-    // 2. Bucle Voraz: Procesar aristas de menor a mayor coste
+    // 2. Bucle Voraz: Procesar aristas.
+    // Al haber cambiado el orden en CalcularVectorAristas, ahora procesamos
+    // las aristas más COSTOSAS primero.
     for (const CyA::AristaPonderada& arista_pond : todas_aristas) {
       int id_arbol_1, id_arbol_2;
       EncontrarSubArbolesIncidentes(bosque, arista_pond.second, id_arbol_1, id_arbol_2);
@@ -41,7 +43,7 @@ namespace EMST {
       }
     }
 
-    // Al final, el bosque debería tener un solo componente (si el grafo es conexo)
+    // Al final, el bosque debería tener un solo componente
     if (!bosque.empty()) {
       emst_aristas_ = bosque[0].ObtenerAristas();
     }
@@ -65,8 +67,8 @@ namespace EMST {
       }
     }
 
-    // Ordenar aristas por peso ascendente (clave para Kruskal)
-    std::sort(vector_aristas.begin(), vector_aristas.end());
+    // --- MODIFICACIÓN---
+    std::sort(vector_aristas.rbegin(), vector_aristas.rend());
   }
 
   void PointSet::EncontrarSubArbolesIncidentes(const Bosque& bosque, const CyA::Arista& arista, int& id_1, int& id_2) const {
@@ -112,24 +114,22 @@ namespace EMST {
   }
 
   void PointSet::EscribirArbol(std::ostream& os) const {
-    // os << "Árbol Generador Mínimo (EMST):" << std::endl; // Comentado para salida limpia si se desea
+    // os << "Árbol Generador MÁXIMO:" << std::endl; 
     for (const auto& arista : emst_aristas_) {
       os << "(" << arista.first.first << ", " << arista.first.second << ") -> "
          << "(" << arista.second.first << ", " << arista.second.second << ")"
          << " [" << std::fixed << std::setprecision(2) << DistanciaEuclidea(arista) << "]" << std::endl;
     }
-    os << std::endl << "Coste total: " << ObtenerCosteTotal() << std::endl;
+    os << std::endl << "Coste total (MÁXIMO): " << ObtenerCosteTotal() << std::endl;
   }
 
   void PointSet::EscribirDOT(std::ostream& os) const {
-    os << "graph EMST {" << std::endl;
+    os << "graph MaxST {" << std::endl; // Cambié el nombre del grafo a MaxST
     os << "  node [shape=circle, style=filled, fillcolor=white];" << std::endl;
 
-    // Mapeo de coordenadas a IDs enteros para simplificar el DOT
     std::map<CyA::Punto, int> ids_puntos;
     int contador_id = 0;
 
-    // Definición de nodos con posiciones
     for (const auto& punto : *this) {
       ids_puntos[punto] = contador_id;
       os << "  " << contador_id << " [pos=\"" 
@@ -138,7 +138,6 @@ namespace EMST {
       contador_id++;
     }
 
-    // Definición de aristas
     for (const auto& arista : emst_aristas_) {
       int id_1 = ids_puntos[arista.first];
       int id_2 = ids_puntos[arista.second];
